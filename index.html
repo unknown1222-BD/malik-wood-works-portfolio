@@ -1,0 +1,3880 @@
+<!-- 
+        DEVELOPED BY: KAMRAN NAWAZ
+        Digital Marketer & WordPress Developer
+        Kamran, this project is now ready for your portfolio.
+    -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malik Woodworks | Premium Kitchens, Doors & Bespoke Woodcraft</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- Premium Brand Fonts (Strictly Cormorant Garamond & Manrope) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@200;300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Core GSAP & Lenis Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
+
+    <style>
+        /* --- 100% Strict Brand Color Palette & Typography System --- */
+        :root {
+            /* Exact requested HEX colors */
+            --color-deep-earth: #2D241E;   /* Primary Background */
+            --color-dark-teak: #5C4033;    /* Secondary/Accent */
+            --color-pale-clay: #E3DCCF;    /* Soft Foreground */
+            --color-muted-forest: #4E5340; /* Natural Accent */
+            --color-black: #1a1a1a;        /* True Depth */
+            --color-white: #f1f1f1;        /* Pure Clarity */
+            
+            /* Hex colors with alpha channels for Shadows */
+            --shadow-black-40: #1a1a1a66; 
+            --shadow-black-50: #1a1a1a80; 
+            --shadow-black-60: #1a1a1a99; 
+            --shadow-black-70: #1a1a1ab3; 
+            
+            /* Strict Brand Fonts */
+            --font-serif: 'Cormorant Garamond', sans-serif;
+            --font-sans: 'Manrope', sans-serif;
+
+            /* Animation Constants */
+            --ease-expo: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        /* --- Base Reset --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* Restored the sophisticated radial gradient from hero.html */
+            background: radial-gradient(circle at 15% 40%, var(--color-dark-teak) -20%, var(--color-deep-earth) 40%, var(--color-black) 100%);
+            background-attachment: fixed;
+            color: var(--color-pale-clay);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            overscroll-behavior: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Utility Classes --- */
+        .italic-text {
+            font-style: italic;
+            font-weight: 400;
+            font-family: var(--font-serif);
+        }
+        .accent-text {
+            color: var(--color-pale-clay);
+            text-shadow: 0 10px 30px var(--shadow-black-40);
+        }
+
+        /* --- Dynamic Film Grain --- */
+        .grain-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            pointer-events: none;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* --- Structural Containers --- */
+        .scroll-distance {
+            height: clamp(250vh, 300vh, 350vh);
+            width: 100vw;
+            position: relative;
+        }
+
+        .sticky-hero {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background: transparent; 
+        }
+
+        /* --- FLUID TYPOGRAPHY --- */
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 7.5vw, 8.5rem);
+            color: var(--color-white);
+            line-height: 0.95;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-bottom: clamp(1rem, 3vh, 2.5rem);
+            letter-spacing: -0.02em;
+            text-shadow: 0 10px 30px var(--shadow-black-50);
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-sans);
+            font-size: clamp(0.85rem, 1.2vw, 1.1rem);
+            color: var(--color-pale-clay);
+            opacity: 0.85;
+            line-height: 1.7;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            max-width: clamp(280px, 80%, 420px);
+            margin-bottom: 2rem;
+        }
+
+        .title-mask {
+            display: block;
+            overflow: hidden;
+            padding-bottom: 0.25em;
+        }
+        .title-anim {
+            display: block;
+            will-change: transform;
+        }
+
+        /* --- CTA Styling --- */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 2.5rem;
+            background: transparent;
+            border: 1px solid var(--color-pale-clay);
+            color: var(--color-pale-clay);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: clamp(0.7rem, 0.9vw, 0.9rem);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: 0.6s var(--ease-expo);
+            pointer-events: auto;
+        }
+
+        @media (max-width: 767px) {
+            #hero-btn-wrapper { display: none !important; }
+        }
+
+        .btn-primary:hover {
+            background: var(--color-pale-clay);
+            color: var(--color-deep-earth);
+        }
+
+        /* --- FLUID LAYOUT: Exact Restoration from hero.html --- */
+        .hero-content-left {
+            position: absolute;
+            top: clamp(12vh, 15vh, 18vh);
+            left: clamp(1.2rem, 5vw, 3rem);
+            width: clamp(280px, 88vw, 600px);
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        @media (min-width: 768px) {
+            .hero-content-left {
+                top: 50%;
+                left: clamp(3rem, 6vw, 8vw);
+                transform: translateY(-50%);
+                width: clamp(350px, 40vw, 600px);
+            }
+        }
+
+        .hero-img-container {
+            position: absolute;
+            top: clamp(42vh, 48vh, 52vh);
+            right: clamp(1.2rem, 5vw, 3rem);
+            width: clamp(280px, 90vw, 600px);
+            height: clamp(38vh, 45vh, 55vh);
+            z-index: 10;
+            overflow: hidden;
+            border-radius: clamp(16px, 4vw, 24px);
+            will-change: transform, width, height, top, right, border-radius;
+            box-shadow: -10px 20px 50px var(--shadow-black-60);
+        }
+        /* --- BRAND BUTTON: Quantum Scatter System --- */
+        .btn-brand-wrapper {
+            perspective: 800px;
+            transform-style: preserve-3d;
+            display: inline-flex;
+            pointer-events: auto;
+        }
+
+        .scatter-btn {
+            background: transparent;
+            outline: none;
+            cursor: pointer;
+            width: clamp(240px, 18vw, 320px);
+            height: clamp(60px, 5vw, 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            /* Using Var for border color */
+            border-bottom: 2px solid var(--color-dark-teak);
+            transition: border-color 0.7s var(--ease-expo);
+            position: relative;
+            z-index: 50;
+        }
+
+        .scatter-btn:hover {
+            border-color: var(--color-pale-clay);
+        }
+
+        .text-container {
+            pointer-events: none;
+            transform-style: preserve-3d;
+            display: flex;
+            align-items: center;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--color-pale-clay);
+            font-size: clamp(0.75rem, 0.9vw, 0.9rem);
+            letter-spacing: 0.2em;
+        }
+
+        .char-span {
+            display: inline-block;
+            position: relative;
+            will-change: transform, color, opacity;
+        }
+
+        .space-span {
+            display: inline-block;
+            width: 0.5em;
+        }
+
+        @media (min-width: 768px) {
+            .hero-img-container {
+                top: clamp(10vh, 12vh, 15vh);
+                right: clamp(2rem, 4vw, 5vw);
+                width: clamp(400px, 48vw, 850px);
+                height: clamp(500px, 76vh, 900px);
+                border-radius: clamp(20px, 2vw, 32px);
+                box-shadow: -20px 30px 60px var(--shadow-black-70);
+            }
+        }
+
+        .hero-img-inner {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            will-change: transform;
+            transform-origin: center;
+        }
+
+        /* --- FLUID FLOATING IMAGES: Exact Restoration from hero.html --- */
+        .gallery-img {
+            position: absolute;
+            z-index: 5; 
+            will-change: transform;
+            overflow: hidden;
+            border-radius: clamp(12px, 1.5vw, 16px);
+            box-shadow: 0 10px 40px var(--shadow-black-60);
+        }
+
+        .gal-1 {
+            width: clamp(100px, 25vw, 160px);
+            height: clamp(130px, 35vw, 220px);
+            left: clamp(1rem, 5vw, 3rem);
+            bottom: clamp(-15vh, -20vh, -25vh);
+        }
+
+        .gal-2 {
+            width: clamp(120px, 30vw, 180px);
+            height: clamp(80px, 20vw, 140px);
+            right: clamp(1rem, 5vw, 3rem);
+            top: clamp(-8vh, -12vh, -15vh);
+        }
+
+        @media (min-width: 768px) {
+            .gal-1 {
+                width: clamp(150px, 16vw, 280px);
+                height: clamp(200px, 22vw, 380px);
+                left: clamp(25vw, 40vw, 45vw);
+                bottom: clamp(-20vh, -30vh, -40vh);
+            }
+            .gal-2 {
+                width: clamp(160px, 20vw, 320px);
+                height: clamp(120px, 14vw, 240px);
+                right: clamp(30vw, 45vw, 50vw);
+                top: clamp(-15vh, -20vh, -25vh);
+            }
+        }
+
+        .gal-img-inner {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.2); 
+        }
+
+        /* --- ABOUT US SECTION: Storytelling Matrix --- */
+        .about-section {
+            width: 100%;
+            position: relative;
+            background: linear-gradient(to bottom right, var(--color-deep-earth), var(--color-black));
+            overflow: hidden;
+        }
+
+        .about-pinned-height {
+            height: 100vh; /* Matches viewport, GSAP will handle the scroll depth via pinning distance */
+        }
+
+        .about-sticky-container {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 var(--space-m);
+        }
+
+        .about-grid {
+            width: 100%;
+            max-width: 1440px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: var(--space-xl);
+            align-items: center;
+        }
+
+        @media (max-width: 991px) {
+            .about-sticky-container {
+                height: auto;
+                min-height: 100svh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: clamp(1.5rem, 5vh, 3rem) clamp(1.5rem, 5vw, 3rem);
+                gap: 2rem;
+            }
+            .about-grid { 
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                gap: 2rem;
+            }
+            .about-content-stack {
+                width: 100%;
+                height: 45vh;
+                order: 1;
+            }
+            .about-image-stage {
+                width: 100%;
+                height: 50vh;
+                order: 2;
+            }
+        }
+
+        /* Progress System Restoration */
+        .about-progress-system {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 1rem;
+            bottom: 1rem;
+            width: 2px;
+            background-color: rgba(227, 220, 207, 0.1);
+            z-index: 5;
+        }
+
+        @media (min-width: 768px) {
+            .about-progress-system {
+                display: block;
+                left: clamp(-1rem, -2vw, -2.5rem);
+            }
+        }
+
+        .about-progress-bar {
+            width: 100%;
+            height: 100%;
+            background: var(--color-muted-forest);
+            transform-origin: top;
+            transform: scaleY(0);
+        }
+
+        /* Content Stack & Padding adjustments to match original */
+        .about-content-stack {
+            position: relative;
+            height: clamp(300px, 40vh, 500px);
+            padding-left: 0;
+        }
+
+        @media (min-width: 768px) {
+            .about-content-stack {
+                padding-left: clamp(1.5rem, 3vw, 2.5rem);
+            }
+        }
+
+
+        .about-slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(30px);
+            transition: opacity 0.6s var(--ease-expo), transform 0.6s var(--ease-expo);
+        }
+
+        .about-slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .about-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--color-pale-clay);
+            opacity: 0.5;
+            margin-bottom: var(--space-s);
+        }
+
+        .about-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            line-height: 1.1;
+            margin-bottom: var(--space-s);
+        }
+
+        .about-title span {
+            font-style: italic;
+            color: var(--color-dark-teak);
+        }
+
+        .about-desc {
+            font-size: clamp(1rem, 1.2vw, 1.125rem);
+            font-weight: 300;
+            line-height: 1.7;
+            opacity: 0.7;
+            max-width: 450px;
+            margin-bottom: var(--space-m);
+        }
+
+        /* Image Masking System */
+        .about-image-stage {
+            position: relative;
+            width: 100%;
+            height: clamp(400px, 70vh, 800px);
+            border-radius: 2rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-premium);
+        }
+
+        .about-img-layer {
+            position: absolute;
+            inset: 0;
+            will-change: clip-path, transform;
+        }
+
+        .about-img-layer img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.1);
+            will-change: transform;
+        }
+
+        /* --- SECTION INTRO: Elite Typography System --- */
+        .section-intro {
+            height: auto;
+            min-height: 60vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(160deg, var(--color-black) 0%, var(--color-deep-earth) 45%, var(--color-black) 100%);
+            overflow: hidden;
+            z-index: 10;
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .section-intro { height: 100vh; }
+        }
+
+        .section-intro-middle {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: clamp(4rem, 10vh, 6rem) clamp(1.5rem, 5vw, 4rem);
+        }
+
+        .section-intro-title {
+            text-align: center;
+            font-family: var(--font-serif);
+            font-size: clamp(2.8rem, 12vw, 13rem);
+            line-height: 1.1; 
+            color: var(--color-white);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .intro-title-line {
+            display: block;
+            overflow: hidden; 
+            padding-bottom: 0.25em; 
+            margin-bottom: -0.2em; 
+        }
+
+        .intro-title-word {
+            display: inline-block;
+            transform: translateY(120%);
+            will-change: transform;
+        }
+
+        .intro-title-word i { font-style: italic; }
+
+        .section-intro-bottom {
+            width: 100%;
+            padding: clamp(2rem, 5vh, 4rem) clamp(1.5rem, 5vw, 4rem);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(1.5rem, 4vh, 2rem);
+            border-top: 1px solid rgba(227, 220, 207, 0.1);
+            opacity: 0; 
+            transform: translateY(20px);
+            align-items: center;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .section-intro-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+                text-align: left;
+            }
+        }
+
+        .section-intro-desc {
+            font-family: var(--font-sans);
+            color: var(--color-pale-clay);
+            opacity: 0.8;
+            font-size: clamp(0.875rem, 1.2vw, 1.1rem);
+            max-width: 480px;
+            line-height: 1.6;
+            font-weight: 300;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .section-intro-desc { margin: 0; }
+        }
+
+        .intro-scroll-indicator {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .intro-scroll-text {
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: clamp(0.6rem, 1vw, 0.75rem);
+            color: var(--color-pale-clay);
+        }
+
+        .intro-scroll-line {
+            width: clamp(40px, 5vw, 80px);
+            height: 1px;
+            background-color: var(--color-dark-teak);
+            position: relative;
+            overflow: hidden;
+            opacity: 0.3;
+        }
+
+        .intro-scroll-line::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: var(--color-pale-clay);
+            transform: translateX(-100%);
+            animation: introScrollLineAnim 2s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+        }
+
+        @keyframes introScrollLineAnim {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(0); }
+            100% { transform: translateX(100%); }
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, var(--color-pale-clay), var(--color-dark-teak));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        /* --- SERVICES SECTION: Horizontal Dynamic Scale --- */
+        .services-section-wrapper {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--color-black) 0%, var(--color-deep-earth) 50%, var(--color-black) 100%);
+        }
+
+        .services-h-scroll {
+            display: flex;
+            height: 100vh;
+            width: max-content; 
+            will-change: transform;
+        }
+
+        .service-panel {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .service-panel-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            transform-origin: center center;
+            will-change: transform, border-radius;
+            -webkit-mask-image: -webkit-radial-gradient(white, black);
+            mask-image: radial-gradient(white, black);
+        }
+
+        .service-panel-img {
+            width: 100%; 
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0; 
+            left: 0;
+            will-change: transform;
+        }
+
+        .service-panel-overlay {
+            position: absolute;
+            inset: -5%;
+            background: linear-gradient(to bottom, transparent 0%, var(--color-deep-earth) 50%, var(--color-black) 100%); 
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .service-panel-content {
+            position: absolute;
+            bottom: clamp(2rem, 8vh, 10%);
+            left: clamp(1.5rem, 5vw, 10%);
+            width: clamp(280px, 85vw, 600px);
+            z-index: 10;
+        }
+
+        .service-number {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            letter-spacing: 0.2em;
+            margin-bottom: clamp(0.5rem, 2vh, 1rem);
+            display: block;
+        }
+
+        .service-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            margin-bottom: clamp(1rem, 3vh, 1.5rem);
+            line-height: 1;
+            color: var(--color-white);
+            font-weight: 400;
+        }
+
+        .service-title i { font-style: italic; }
+
+        .service-desc {
+            font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+            font-weight: 300;
+            color: var(--color-pale-clay); 
+            opacity: 0.8;
+            line-height: 1.625;
+        }
+
+        /* --- SECTION INTRO: Elite Typography System --- */
+        .section-intro {
+            height: auto;
+            min-height: 60vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(160deg, var(--color-black) 0%, var(--color-deep-earth) 45%, var(--color-black) 100%);
+            overflow: hidden;
+            z-index: 10;
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .section-intro { height: 100vh; }
+        }
+
+        .section-intro-middle {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: clamp(4rem, 10vh, 6rem) clamp(1.5rem, 5vw, 4rem);
+        }
+
+        .section-intro-title {
+            text-align: center;
+            font-family: var(--font-serif);
+            font-size: clamp(2.8rem, 12vw, 13rem);
+            line-height: 1.1; 
+            color: var(--color-white);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .intro-title-line {
+            display: block;
+            overflow: hidden; 
+            padding-bottom: 0.25em; 
+            margin-bottom: -0.2em; 
+        }
+
+        .intro-title-word {
+            display: inline-block;
+            transform: translateY(120%);
+            will-change: transform;
+        }
+
+        .intro-title-word i { font-style: italic; }
+
+        .section-intro-bottom {
+            width: 100%;
+            padding: clamp(2rem, 5vh, 4rem) clamp(1.5rem, 5vw, 4rem);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(1.5rem, 4vh, 2rem);
+            border-top: 1px solid rgba(227, 220, 207, 0.1);
+            opacity: 0; 
+            transform: translateY(20px);
+            align-items: center;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .section-intro-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+                text-align: left;
+            }
+        }
+
+        .section-intro-desc {
+            font-family: var(--font-sans);
+            color: var(--color-pale-clay);
+            opacity: 0.8;
+            font-size: clamp(0.875rem, 1.2vw, 1.1rem);
+            max-width: 480px;
+            line-height: 1.6;
+            font-weight: 300;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .section-intro-desc { margin: 0; }
+        }
+
+        .intro-scroll-indicator {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .intro-scroll-text {
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: clamp(0.6rem, 1vw, 0.75rem);
+            color: var(--color-pale-clay);
+        }
+
+        .intro-scroll-line {
+            width: clamp(40px, 5vw, 80px);
+            height: 1px;
+            background-color: var(--color-dark-teak);
+            position: relative;
+            overflow: hidden;
+            opacity: 0.3;
+        }
+
+        .intro-scroll-line::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: var(--color-pale-clay);
+            transform: translateX(-100%);
+            animation: introScrollLineAnim 2s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+        }
+
+        @keyframes introScrollLineAnim {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(0); }
+            100% { transform: translateX(100%); }
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, var(--color-pale-clay), var(--color-dark-teak));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        /* --- CINEMATIC OUTRO SYSTEM --- */
+        .outro-section {
+            min-height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(160deg, var(--color-black) 0%, var(--color-deep-earth) 45%, var(--color-black) 100%);
+            padding: clamp(3rem, 10vh, 6rem) clamp(1.5rem, 5vw, 4rem);
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .outro-section::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80vw;
+            height: 80vh;
+            background: radial-gradient(circle, var(--color-deep-earth) 0%, transparent 70%);
+            opacity: 0.15;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .outro-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3.5rem, 9vw, 8rem);
+            line-height: 1.05;
+            color: var(--color-white);
+            margin-bottom: clamp(1rem, 3vh, 2rem);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .outro-title .title-line {
+            display: block;
+            overflow: hidden;
+            padding-bottom: 0.3em;
+            margin-bottom: -0.25em;
+        }
+
+        .outro-desc {
+            font-family: var(--font-sans);
+            color: var(--color-pale-clay);
+            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+            max-width: 550px;
+            line-height: 1.6;
+            font-weight: 300;
+            margin-bottom: clamp(2rem, 5vh, 3rem);
+            opacity: 0.8;
+        }
+
+        /* Scatter Button override for Outro */
+        .outro-section .scatter-btn {
+            width: clamp(260px, 60vw, 400px);
+            height: clamp(60px, 12vw, 96px);
+        }
+        .outro-section .text-container {
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            letter-spacing: clamp(0.15em, 0.4vw, 0.25em);
+        }
+
+        /* --- PORTFOLIO Z-DEPTH SECTION --- */
+        #z-space-container {
+            --bg-center: var(--color-deep-earth); 
+            --bg-outer: var(--color-black);  
+            background: radial-gradient(circle at center, var(--bg-center) 0%, var(--bg-outer) 100%);
+            perspective: 1500px;
+            transform-style: preserve-3d;
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        .ui-counter {
+            position: absolute;
+            bottom: clamp(1.5rem, 4vw, 2.5rem);
+            right: clamp(1.5rem, 4vw, 2.5rem);
+            z-index: 50;
+            mix-blend-mode: difference;
+            pointer-events: none;
+        }
+        
+        .ui-counter span {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-style: italic;
+            color: var(--color-pale-clay);
+        }
+
+        .z-stack-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .z-item {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            transform-style: preserve-3d;
+            will-change: transform, opacity, filter;
+        }
+
+        .tilt-wrapper {
+            width: clamp(280px, 50vw, 800px);
+            height: clamp(400px, 70vh, 1000px);
+            position: relative;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .main-img {
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover;
+            box-shadow: 0 30px 60px var(--shadow-black-60);
+            border-radius: clamp(20px, 4vw, 50px);
+        }
+
+        .img-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: clamp(20px, 4vw, 50px);
+        }
+
+        .gradient-1 { background: linear-gradient(to top, var(--color-black), rgba(92, 64, 51, 0.3), transparent); }
+        .gradient-2 { background: linear-gradient(to top right, var(--color-black), rgba(78, 83, 64, 0.4), transparent); }
+        .gradient-3 { background: linear-gradient(to bottom, transparent, rgba(45, 36, 30, 0.4), var(--color-black)); }
+        .gradient-4 { background: linear-gradient(to bottom right, rgba(92, 64, 51, 0.4), rgba(26, 26, 26, 0.5), var(--color-black)); }
+
+        .z-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) translateZ(120px);
+            pointer-events: none;
+            width: 150vw;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .z-text .subtitle {
+            font-family: var(--font-sans);
+            font-size: clamp(0.6rem, 1vw, 0.8rem);
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: var(--color-pale-clay);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: clamp(1rem, 3vw, 2rem);
+        }
+        
+        .z-text .subtitle::before, .z-text .subtitle::after {
+            content: '';
+            display: block;
+            width: clamp(20px, 4vw, 50px);
+            height: 1px;
+            background-color: var(--color-pale-clay);
+            opacity: 0.5;
+        }
+
+        .title-main {
+            font-family: var(--font-serif);
+            font-size: clamp(4rem, 12vw, 11rem); 
+            text-transform: uppercase;
+            line-height: 0.85; 
+            color: var(--color-white);
+            font-weight: 400;
+            letter-spacing: -0.02em; 
+            text-shadow: 0 20px 50px var(--shadow-black-60);
+        }
+
+        .italic-accent {
+            display: block; 
+            font-style: italic;
+            font-weight: 300;
+            color: var(--color-pale-clay);
+            margin-left: clamp(2rem, 15vw, 10rem); 
+        }
+
+        @media (max-width: 1024px) {
+            .tilt-wrapper { width: 85vw; height: 60vh; }
+            .z-text { 
+                transform: translate(-50%, -50%) translateZ(50px); 
+            }
+            .italic-accent {
+                margin-left: clamp(1rem, 10vw, 4rem);
+            }
+        }
+        /* --- TESTIMONIAL SCROLLY SECTION --- */
+        .testimonial-scrolly-section {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(1rem, 3vh, 3rem) 0;
+            overflow: hidden;
+        }
+
+        .testimonial-wrapper {
+            max-width: 1600px;
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            padding: 0 clamp(1.5rem, 4vw, 3rem);
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testimonial-left {
+            width: 100%;
+            height: 40vh;
+            position: relative;
+            z-index: 10;
+        }
+
+        .testimonial-decor-border {
+            position: absolute;
+            top: -1rem;
+            left: -1rem;
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgba(227, 220, 207, 0.4); 
+            border-radius: 2.5rem;
+            z-index: -10;
+            display: none;
+            transition: transform 0.7s ease-out;
+        }
+
+        .testimonial-image-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            background-color: var(--color-black);
+            box-shadow: 0 25px 50px -12px rgba(26, 26, 26, 0.5);
+            border-radius: 2.5rem;
+        }
+
+        .t-img-wrap {
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .t-img-inner {
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            object-position: center !important;
+            display: block;
+        }
+
+        .testimonial-right {
+            width: 100%;
+            margin-top: -8vh;
+            position: relative;
+            z-index: 20;
+            display: flex;
+            justify-content: center;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(135deg, var(--color-pale-clay) 0%, var(--color-white) 100%);
+            box-shadow: 0 30px 60px -15px rgba(26, 26, 26, 0.6), inset 0 1px 0 rgba(241, 241, 241, 0.4);
+            border-radius: 2.5rem;
+            padding: clamp(1.5rem, min(4vw, 4vh), 5rem);
+            position: relative;
+            border: 1px solid rgba(241, 241, 241, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .testimonial-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: clamp(15rem, min(40vw, 50vh), 40rem);
+            font-family: var(--font-serif);
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
+            line-height: 1;
+            background: linear-gradient(to bottom, var(--color-pale-clay), rgba(227, 220, 207, 0));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .testimonial-bg-quote {
+            font-family: var(--font-serif);
+            font-size: clamp(6rem, min(12vw, 15vh), 14rem);
+            top: clamp(2rem, 5vh, 4rem);
+            left: clamp(1rem, 3vw, 2rem);
+            line-height: 0;
+            background: linear-gradient(180deg, rgba(45, 36, 30, 0.15) 0%, rgba(45, 36, 30, 0.02) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: absolute;
+            pointer-events: none;
+            transform: rotate(-5deg);
+        }
+
+        .testimonial-text-container {
+            position: relative;
+            z-index: 10;
+            display: grid;
+            align-items: center;
+            min-height: clamp(12rem, min(28vh, 30vw), 22rem);
+        }
+
+        .t-text-wrapper {
+            grid-column: 1 / -1;
+            grid-row: 1 / -1;
+            width: 100%;
+            padding: clamp(0.5rem, 1.5vh, 1.5rem) 0;
+        }
+
+        .t-quote-title {
+            font-family: var(--font-serif);
+            font-size: clamp(1.2rem, min(3.5vw, 3.5vh), 2.75rem);
+            line-height: 1.25;
+            color: var(--color-deep-earth);
+            margin-bottom: clamp(1rem, min(3vw, 3vh), 2rem);
+            font-weight: 400;
+        }
+
+        .t-author-info {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.75rem, 1.5vw, 1.25rem);
+            opacity: 0;
+            transform: translateY(1rem);
+        }
+
+        .t-author-line {
+            width: clamp(1.5rem, 3vw, 2.5rem);
+            height: 2px;
+            background: linear-gradient(to right, var(--color-dark-teak), rgba(92, 64, 51, 0));
+            flex-shrink: 0;
+            border-radius: 999px;
+        }
+
+        .t-author-name {
+            font-weight: 800;
+            font-size: clamp(0.85rem, min(1.2vw, 1.8vh), 1.1rem);
+            letter-spacing: 0.025em;
+            color: var(--color-black);
+        }
+
+        .t-author-role {
+            font-size: clamp(0.6rem, min(0.8vw, 1.2vh), 0.75rem);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-dark-teak);
+            margin-top: 0.25rem;
+            font-weight: 600;
+        }
+
+        .t-word-mask {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: top;
+            padding-bottom: 0.1em;
+            margin-right: 0.25em;
+        }
+        
+        .t-word-inner {
+            display: inline-block;
+            transform: translateY(110%);
+            will-change: transform;
+        }
+
+        .testimonial-nav {
+            margin-top: clamp(1rem, min(4vh, 3vw), 3rem);
+            padding-top: clamp(1rem, min(3vh, 2vw), 2rem);
+            border-top: 1px solid rgba(92, 64, 51, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            z-index: 10;
+            position: relative;
+        }
+
+        .t-progress-group {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.75rem, 2vw, 1.5rem);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-deep-earth);
+            letter-spacing: 0.1em;
+            position: relative;
+        }
+
+        .t-progress-circle-wrap {
+            position: relative;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background-color: rgba(241, 241, 241, 0.3);
+            border-radius: 50%;
+            box-shadow: inset 0 2px 4px 0 rgba(26, 26, 26, 0.06);
+        }
+
+        .t-progress-circle-wrap svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 1px 1px rgba(26, 26, 26, 0.05));
+        }
+
+        .t-progress-track {
+            stroke: rgba(92, 64, 51, 0.1);
+        }
+
+        .t-progress-ring-circle {
+            transition: stroke-dashoffset 0.1s linear;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        .t-current-slide {
+            position: absolute;
+            font-size: clamp(0.75rem, 1vw, 0.875rem);
+            font-weight: 700;
+        }
+
+        .t-progress-separator {
+            width: clamp(1rem, 2vw, 2rem);
+            height: 1px;
+            background: linear-gradient(to right, rgba(92, 64, 51, 0.4), rgba(92, 64, 51, 0));
+        }
+
+        .t-total-slides {
+            opacity: 0.6;
+            font-size: clamp(0.75rem, 1vw, 0.875rem);
+        }
+
+        .t-nav-buttons {
+            display: flex;
+            gap: clamp(0.5rem, 1vw, 1rem);
+        }
+
+        .t-magnetic-wrap {
+            position: relative;
+            display: inline-block;
+        }
+
+        .t-nav-btn {
+            background: linear-gradient(135deg, rgba(92, 64, 51, 0) 0%, rgba(92, 64, 51, 0.05) 100%);
+            border: 1px solid rgba(92, 64, 51, 0.3);
+            color: var(--color-deep-earth);
+            transition: border-color 0.4s ease, color 0.4s ease, transform 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            outline: none;
+            cursor: pointer;
+            z-index: 10;
+            flex-shrink: 0;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+        
+        .t-nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--color-dark-teak) 0%, var(--color-deep-earth) 100%);
+            transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        .t-nav-btn:hover::before {
+            top: 0;
+            border-radius: 0;
+        }
+
+        .t-nav-btn:hover {
+            color: var(--color-pale-clay);
+            border-color: transparent;
+        }
+
+        .t-nav-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        @media (min-width: 768px) {
+            .testimonial-decor-border {
+                display: block;
+                top: -1.25rem;
+                left: -1.25rem;
+            }
+            .t-progress-circle-wrap, .t-nav-btn {
+                width: 3.5rem;
+                height: 3.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .testimonial-wrapper {
+                flex-direction: row;
+            }
+            .testimonial-left {
+                width: 55%;
+                height: 75vh;
+            }
+            .testimonial-right {
+                width: 50%;
+                margin-left: -8%;
+                margin-top: 0;
+            }
+        }
+
+        /* --- Contact Us Section (Final CTA) --- */
+        .hero-indicator {
+            position: relative;
+            height: clamp(60vh, 90vh, 1000px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom, var(--color-black), var(--color-deep-earth));
+            overflow: hidden;
+        }
+
+        .circle-text-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: clamp(18rem, 40vw, 30rem);
+            height: clamp(18rem, 40vw, 30rem);
+            opacity: 0.25;
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        .circle-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .circle-text {
+            fill: var(--color-pale-clay);
+            font-size: 10px;
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-weight: bold;
+        }
+
+        @media (min-width: 768px) {
+            .circle-text { font-size: 11px; }
+        }
+
+        .hero-line-indicator {
+            position: relative;
+            z-index: 10;
+            margin-top: clamp(2rem, 4vw, 3rem);
+            width: 1px;
+            height: clamp(4rem, 10vh, 8rem);
+            background: linear-gradient(to bottom, var(--color-pale-clay), transparent);
+            opacity: 0.4;
+        }
+
+        .split-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--color-black);
+            overflow: hidden;
+            perspective: 2500px;
+        }
+
+        .deep-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, var(--color-deep-earth) 0%, var(--color-black) 100%);
+            z-index: 0;
+            opacity: 0.8;
+        }
+
+        .split-layer {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 20;
+            pointer-events: none;
+            transform-style: preserve-3d;
+        }
+
+        #top-split-contact { transform-origin: center top; }
+        #bottom-split-contact { transform-origin: center bottom; }
+        
+        .clip-top { clip-path: inset(0 0 50% 0); z-index: 21; }
+        .clip-bottom { clip-path: inset(50% 0 0 0); z-index: 21; }
+
+        .cover-content {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            pointer-events: none;
+        }
+
+        .cover-image-box {
+            width: 100%;
+            height: 50%;
+            background-color: var(--color-black);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cover-text-box {
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to bottom right, var(--color-deep-earth), var(--color-black));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 clamp(2rem, 6vw, 6rem);
+        }
+
+        @media (min-width: 768px) {
+            .cover-content { flex-direction: row; }
+            .cover-image-box { width: 50%; height: 100%; }
+            .cover-text-box { width: 50%; height: 100%; }
+        }
+
+        .cover-eyebrow {
+            color: var(--color-pale-clay);
+            letter-spacing: clamp(0.4em, 0.6vw, 0.8em);
+            font-size: clamp(10px, 1vw, 14px);
+            text-transform: uppercase;
+            margin-bottom: clamp(1rem, 2vw, 1.5rem);
+            opacity: 0.7;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .cover-heading {
+            font-size: clamp(3.5rem, 10vw, 8rem);
+            line-height: 0.85;
+            color: var(--color-white);
+            font-family: var(--font-serif);
+            margin: 0;
+        }
+
+        .cover-footer {
+            margin-top: clamp(2rem, 4vw, 3rem);
+            display: flex;
+            align-items: center;
+            gap: clamp(1rem, 2vw, 1.5rem);
+        }
+
+        .cover-footer-line {
+            width: clamp(3rem, 6vw, 6rem);
+            height: 1px;
+            background-color: var(--color-pale-clay);
+            opacity: 0.4;
+        }
+
+        .cover-footer-text {
+            font-size: clamp(9px, 0.8vw, 12px);
+            text-transform: uppercase;
+            letter-spacing: clamp(0.2em, 0.4vw, 0.4em);
+            color: var(--color-white);
+            opacity: 0.5;
+        }
+
+        .form-wrapper {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            padding: 1rem;
+            transform-style: preserve-3d;
+        }
+
+        .luxury-form-card {
+            width: clamp(300px, 90vw, 1000px);
+            max-height: 95vh;
+            overflow-y: auto;
+            padding: clamp(1.5rem, 6vw, 4rem);
+            border-radius: 1.5rem;
+            position: relative;
+            background: linear-gradient(145deg, color-mix(in srgb, var(--color-deep-earth) 85%, transparent) 0%, color-mix(in srgb, var(--color-black) 95%, transparent) 100%);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid color-mix(in srgb, var(--color-pale-clay) 15%, transparent);
+            box-shadow: 0 100px 150px -50px var(--color-black), inset 0 1px 0 color-mix(in srgb, var(--color-pale-clay) 5%, transparent);
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .luxury-form-card::-webkit-scrollbar {
+            display: none;
+        }
+
+        .watermark-logo {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: clamp(1.5rem, 3vw, 2rem);
+            user-select: none;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .watermark-logo img {
+            width: clamp(60px, 10vw, 110px);
+            object-fit: contain;
+            opacity: 0.15;
+        }
+
+        .form-header-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: clamp(1.5rem, 4vh, 4rem);
+            position: relative;
+            z-index: 10;
+        }
+
+        .atelier-label-box {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.5rem, 1vw, 1rem);
+            margin-bottom: clamp(0.8rem, 2vh, 1.5rem);
+            margin-top: 1rem;
+        }
+
+        .atelier-line {
+            width: clamp(1rem, 3vw, 2rem);
+            height: 1px;
+            background-color: var(--color-dark-teak);
+        }
+
+        .atelier-text {
+            color: var(--color-pale-clay);
+            font-size: clamp(10px, 1vw, 12px);
+            text-transform: uppercase;
+            letter-spacing: clamp(0.3em, 0.5vw, 0.5em);
+            font-weight: bold;
+        }
+
+        .form-heading {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1;
+            background: linear-gradient(to bottom, var(--color-white), var(--color-pale-clay));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-family: var(--font-serif);
+            font-style: italic;
+            text-align: center;
+            filter: drop-shadow(0 25px 25px rgba(0,0,0,0.15));
+            margin: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            column-gap: clamp(1.5rem, 4vw, 3rem);
+            row-gap: clamp(1.5rem, 3vh, 3rem);
+            position: relative;
+            z-index: 10;
+        }
+        @media (min-width: 768px) {
+            .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        .field-wrapper {
+            position: relative;
+        }
+        .full-width {
+            grid-column: span 1;
+        }
+        @media (min-width: 768px) {
+            .full-width { grid-column: span 2; }
+        }
+
+        .input-base {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid color-mix(in srgb, var(--color-white) 20%, transparent);
+            padding: clamp(0.5rem, 1.5vh, 1rem) 0;
+            font-size: clamp(1rem, 1.2vw, 1.25rem);
+            color: var(--color-white);
+            transition: border-color 0.3s;
+            font-family: var(--font-sans);
+        }
+        .textarea-base {
+            resize: none;
+            overflow: hidden;
+        }
+
+        .input-base:focus {
+            outline: none;
+            border-bottom-color: var(--color-pale-clay);
+        }
+        .input-base::placeholder {
+            color: transparent;
+        }
+
+        .input-base:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+            -webkit-text-fill-color: var(--color-white) !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
+        .field-label {
+            position: absolute;
+            left: 0;
+            top: clamp(0.5rem, 1.5vh, 1rem);
+            color: var(--color-pale-clay);
+            opacity: 0.7;
+            font-size: clamp(12px, 1vw, 14px);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+            pointer-events: none;
+            transform-origin: left;
+        }
+
+        .input-base:focus ~ .field-label,
+        .input-base:not(:placeholder-shown) ~ .field-label {
+            transform: translateY(-24px) scale(0.8);
+            color: var(--color-pale-clay);
+            opacity: 1;
+        }
+
+        .submit-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: clamp(1rem, 3vh, 1.5rem);
+        }
+
+        .footer-spacer {
+            height: 40vh;
+            background-color: var(--color-black);
+        }
+
+        /* --- ELITE HEADER & MENU SYSTEM --- */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10000;
+            padding: clamp(1rem, max(2vh, 1.5vw), 2rem) clamp(1.5rem, max(4vw, 3vh), 4rem);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            pointer-events: none;
+        }
+
+        .site-header.nav-hidden {
+            transform: translateY(-100%);
+        }
+
+        .logo-wrap {
+            position: relative;
+            z-index: 10000;
+            height: clamp(1.2rem, max(1.5vw, 2vh), 2rem);
+            width: clamp(6rem, max(8vw, 10vh), 10rem);
+            pointer-events: auto;
+            display: block;
+            text-decoration: none;
+            overflow: hidden;
+            color: var(--color-white);
+        }
+
+        .logo-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: left;
+        }
+
+        .logo-underline {
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--color-white);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease-out;
+        }
+
+        .logo-wrap:hover .logo-underline {
+            transform: scaleX(1);
+        }
+
+        .magnetic-wrap {
+            position: relative;
+            z-index: 10000;
+            padding: clamp(0.5rem, 1vw, 1rem);
+            margin-right: calc(clamp(0.5rem, 1vw, 1rem) * -1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+        }
+
+        .menu-icon-inner {
+            width: clamp(2rem, max(2.5vw, 3vh), 2.5rem);
+            height: 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-end;
+            position: relative;
+            pointer-events: none;
+        }
+
+        .header-line {
+            display: block;
+            height: 1.5px;
+            background: var(--color-white);
+            transform-origin: center;
+            transition: width 0.3s ease, transform 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+        }
+
+        .line-1 { width: 100%; }
+        .line-2 { width: 66.66%; }
+
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            opacity: 0;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: 
+                radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--color-dark-teak) 25%, transparent) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, color-mix(in srgb, var(--color-muted-forest) 15%, transparent) 0%, transparent 50%),
+                linear-gradient(135deg, color-mix(in srgb, var(--color-black) 95%, transparent) 0%, color-mix(in srgb, var(--color-deep-earth) 95%, transparent) 100%);
+        }
+
+        .menu-nav-links {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(1vh, max(1.5vh, 1vw), 2.5vh);
+            pointer-events: auto;
+        }
+
+        .menu-nav-links:hover .menu-item { opacity: 0.2; }
+        .menu-nav-links .menu-item:hover { opacity: 1; }
+
+        .menu-item {
+            position: relative;
+            display: inline-block;
+            transition: opacity 0.4s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .menu-item-text {
+            font-size: clamp(2.5rem, max(5vw, min(9vw, 12vh)), 9rem);
+            line-height: 0.95;
+            text-transform: uppercase;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            color: var(--color-white);
+            display: block;
+            font-family: var(--font-serif);
+        }
+
+        .char-wrap {
+            overflow: hidden;
+            display: inline-block;
+            padding-right: 0.05em;
+        }
+
+        .char {
+            display: inline-block;
+            transform: translateY(110%);
+            will-change: transform;
+            transition: all 0.4s ease;
+        }
+
+        .menu-item:hover .char {
+            background: linear-gradient(135deg, var(--color-pale-clay) 0%, var(--color-white) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-style: italic;
+        }
+
+        .item-index {
+            position: absolute;
+            left: clamp(-30px, -4vw, -50px);
+            top: 20%;
+            font-size: clamp(0.75rem, max(1vw, 1.5vh), 1.2rem);
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+            color: var(--color-pale-clay);
+        }
+
+        .menu-item:hover .item-index {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .floating-cursor-img {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: clamp(180px, max(30vh, 25vw), 450px);
+            aspect-ratio: 3/4;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5);
+            overflow: hidden;
+            border-radius: clamp(10px, 2vw, 20px);
+            will-change: transform, opacity;
+        }
+
+        .floating-cursor-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.5);
+            will-change: transform;
+        }
+
+        .menu-footer {
+            position: absolute;
+            bottom: clamp(1.5rem, max(3vh, 2vw), 3rem);
+            left: clamp(1.5rem, max(4vw, 3vh), 4rem);
+            right: clamp(1.5rem, max(4vw, 3vh), 4rem);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        .overlay-element { opacity: 0; transform: translateY(20px); }
+
+        .footer-contact p {
+            opacity: 0.5; color: var(--color-white); font-size: clamp(0.6rem, 1vw, 0.75rem);
+            letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.5rem;
+        }
+
+        .footer-contact a {
+            color: var(--color-white); text-decoration: none;
+            font-size: clamp(1.1rem, max(1.5vw, 2vh), 1.5rem);
+            font-style: italic; transition: color 0.3s ease; display: block;
+            font-family: var(--font-serif);
+        }
+
+        .footer-contact a:hover { color: var(--color-pale-clay); }
+
+        .social-icons-wrapper { display: flex; gap: clamp(1rem, max(1.5vw, 2vh), 2rem); align-items: center; }
+        .social-icon-wrap { opacity: 0; }
+        .social-icon-wrap a { display: block; color: var(--color-white); transition: transform 0.3s ease, color 0.3s ease; }
+        .social-icon-wrap a:hover { color: var(--color-pale-clay); transform: scale(1.1); }
+        .social-icon-wrap svg { width: clamp(18px, max(1.5vw, 2vh), 24px); height: clamp(18px, max(1.5vw, 2vh), 24px); }
+
+        @media (max-width: 768px) {
+            .item-index { display: none; }
+            .floating-cursor-img { display: none; }
+        }
+
+        /* --- MONOLITH FOOTER SYSTEM --- */
+        .monolith-wrapper {
+            position: relative;
+            width: 100%;
+            background-color: var(--color-black);
+        }
+
+        .monolith-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100vh; 
+            background-color: var(--color-black);
+            display: flex;
+            flex-direction: column; 
+        }
+        
+        @media (min-width: 1024px) {
+            .monolith-container {
+                flex-direction: row; 
+            }
+        }
+
+        .pillar {
+            position: relative;
+            flex: 1; 
+            overflow: hidden;
+            transition: flex 0.8s cubic-bezier(0.87, 0, 0.13, 1); 
+            border-bottom: 1px solid rgba(var(--color-pale-clay-rgb), 0.1);
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        @media (min-width: 1024px) {
+            .pillar {
+                border-bottom: none;
+                border-right: 1px solid rgba(var(--color-pale-clay-rgb), 0.1);
+            }
+        }
+
+        .pillar:last-child { border: none; }
+
+        @media (min-width: 1024px) {
+            .monolith-container:hover .pillar { flex: 0.5; }
+            .monolith-container .pillar:hover { flex: 3; }
+        }
+        @media (max-width: 1023px) {
+            .pillar { cursor: pointer; }
+            .pillar.active-mobile { flex: 5; }
+        }
+
+        .pillar-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.15);
+            transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1), filter 0.8s ease;
+            filter: grayscale(80%) brightness(0.3); 
+            z-index: 0;
+        }
+
+        .pillar:hover .pillar-bg {
+            transform: scale(1);
+            filter: grayscale(0%) brightness(0.6); 
+        }
+        .pillar.active-mobile .pillar-bg {
+            transform: scale(1);
+            filter: grayscale(0%) brightness(0.5);
+        }
+
+        .pillar-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(var(--color-black-rgb), 0.9) 0%, rgba(var(--color-black-rgb), 0.1) 50%, rgba(var(--color-black-rgb), 0.6) 100%);
+            z-index: 1;
+            transition: opacity 0.8s ease;
+        }
+
+        .overlay-custom-1 { background: linear-gradient(to top, rgba(var(--color-muted-forest-rgb), 0.8) 0%, rgba(var(--color-black-rgb), 0.1) 50%, rgba(var(--color-black-rgb), 0.6) 100%); }
+        .overlay-custom-2 { background: linear-gradient(to top, rgba(var(--color-dark-teak-rgb), 0.8) 0%, rgba(var(--color-black-rgb), 0.1) 50%, rgba(var(--color-black-rgb), 0.6) 100%); }
+
+        .pillar-title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            color: var(--color-pale-clay);
+            white-space: nowrap;
+            transition: opacity 0.4s ease, transform 0.8s ease;
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 4.5rem);
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+        
+        @media (min-width: 1024px) {
+            .pillar-title {
+                writing-mode: vertical-rl;
+                transform: translate(-50%, -50%) rotate(180deg);
+                letter-spacing: 0.2em;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .pillar:hover .pillar-title {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+        }
+        .pillar.active-mobile .pillar-title { opacity: 0; }
+
+        .pillar-content {
+            position: absolute;
+            bottom: clamp(6rem, 15vh, 10rem); 
+            left: clamp(1.5rem, 4vw, 4rem);
+            right: clamp(1.5rem, 4vw, 4rem);
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none; 
+            display: flex;
+            flex-direction: column;
+            gap: clamp(1rem, 2vw, 1.5rem);
+        }
+
+        @media (min-width: 1024px) {
+            .pillar:hover .pillar-content {
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
+                transition-delay: 0.3s; 
+            }
+        }
+        .pillar.active-mobile .pillar-content {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            transition-delay: 0.2s;
+        }
+
+        .pillar-content .p-subtitle {
+            font-size: clamp(0.65rem, 1vw, 0.75rem);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(var(--color-pale-clay-rgb), 0.6); 
+            border-bottom: 1px solid rgba(var(--color-pale-clay-rgb), 0.2);
+            padding-bottom: 0.5rem;
+            width: fit-content;
+        }
+
+        .pillar-content .p-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 5vw, 5rem);
+            color: var(--color-pale-clay);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .pillar-content .p-title span { color: var(--color-dark-teak); font-style: italic; }
+
+        .pillar-content .p-desc {
+            color: rgba(var(--color-pale-clay-rgb), 0.8);
+            font-size: clamp(0.875rem, 1vw, 1rem);
+            max-width: 320px;
+            font-weight: 300;
+        }
+
+        .pillar-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .monolith-link {
+            position: relative;
+            width: fit-content;
+            color: var(--color-pale-clay);
+            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+            font-weight: 300;
+            transition: color 0.3s;
+        }
+        .monolith-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--color-dark-teak);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+        .monolith-link:hover { color: var(--color-white); }
+        .monolith-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .footer-bottom-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: clamp(1rem, 3vh, 2rem) clamp(1.5rem, 4vw, 4rem);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 20;
+            border-top: 1px solid rgba(var(--color-pale-clay-rgb), 0.15);
+            background: linear-gradient(to top, rgba(var(--color-black-rgb), 0.95), transparent);
+            pointer-events: none;
+        }
+        .footer-bottom-bar > * { pointer-events: auto; }
+
+        .f-logo {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+            color: var(--color-pale-clay);
+            letter-spacing: 3px;
+        }
+
+        .f-copy {
+            font-size: clamp(0.6rem, 0.8vw, 0.75rem);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(var(--color-pale-clay-rgb), 0.6);
+            font-weight: 500;
+        }
+
+        .social-coins {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-coin {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: clamp(2.5rem, 4vw, 3.5rem);
+            height: clamp(2.5rem, 4vw, 3.5rem);
+            border-radius: 50%;
+            border: 1px solid rgba(var(--color-pale-clay-rgb), 0.3);
+            color: var(--color-pale-clay);
+            font-size: 1.25rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .social-coin:hover {
+            background-color: var(--color-pale-clay);
+            color: var(--color-black);
+            border-color: var(--color-pale-clay);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 1023px) {
+            .pillar-content { align-items: center; text-align: center; }
+            .pillar-links { align-items: center; }
+            .f-copy { display: none; }
+            .footer-bottom-bar { padding-bottom: 3rem; }
+        }
+
+        /* 11. WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 100000;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 32px;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1) translateY(-5px);
+            background: #20BA5A;
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
+        }
+        .whatsapp-float i {
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+        }
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                bottom: 25px;
+                right: 25px;
+                width: 50px;
+                height: 50px;
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ELITE HEADER -->
+    <header id="header" class="site-header">
+        <a href="#" class="logo-wrap" id="logo-wrap-site">
+            <img src="logo.png" alt="Malik Wood Works Logo">
+            <span class="logo-underline"></span>
+        </a>
+
+        <div id="magnetic-menu-wrap" class="magnetic-wrap">
+            <div id="menu-icon" class="menu-icon-inner">
+                <span class="line-1 header-line"></span>
+                <span class="line-2 header-line"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- MENU OVERLAY -->
+    <div id="menu-overlay" class="menu-overlay">
+        <div id="floating-cursor-img" class="floating-cursor-img">
+            <img src="" alt="Menu Preview" id="cursor-img-inner">
+        </div>
+        
+        <nav class="menu-nav-links">
+            <a href="#about-story" class="menu-item" data-img="Assests/unnamed (11).jpg">
+                <span class="item-index">01</span>
+                <span class="menu-item-text">About</span>
+            </a>
+            <a href="#services-scroller" class="menu-item" data-img="Assests/unnamed (2).jpg">
+                <span class="item-index">02</span>
+                <span class="menu-item-text">Services</span>
+            </a>
+            <a href="#portfolio-grid" class="menu-item" data-img="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&q=80&w=800">
+                <span class="item-index">03</span>
+                <span class="menu-item-text">Portfolio</span>
+            </a>
+            <a href="#testimonials-outro" class="menu-item" data-img="Assests/unnamed (6).jpg">
+                <span class="item-index">04</span>
+                <span class="menu-item-text">Clients</span>
+            </a>
+            <a href="#contact-split-container" class="menu-item" data-img="Assests/unnamed (7).jpg">
+                <span class="item-index">05</span>
+                <span class="menu-item-text">Contact</span>
+            </a>
+        </nav>
+
+        <div class="menu-footer">
+            <div class="footer-contact overlay-element">
+                <p>Reach Out</p>
+                <a href="mailto:vision@aura-studios.com">vision@aura-studios.com</a>
+            </div>
+            <div class="social-icons-wrapper">
+                <div class="social-icon-wrap"><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a></div>
+                <div class="social-icon-wrap"><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg></a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grain Overlay -->
+    <div class="grain-overlay"></div>
+
+    <!-- Scroll Distance Container -->
+    <div class="scroll-distance">
+        
+        <!-- Pinned Hero View -->
+        <div class="sticky-hero">
+
+            <!-- 1. Left Content: Cleaned & Accessible -->
+            <div class="hero-content-left fade-on-scroll">
+                <h1 class="hero-title">
+                    <span class="title-mask"><span class="title-anim">ELITE</span></span>
+                    <span class="title-mask"><span class="title-anim italic-text accent-text">WOODWORKS.</span></span>
+                </h1>
+                <p class="hero-subtitle fade-anim">
+                    From elite UV kitchens to handcrafted solid doors, we transform raw materials into enduring legacies of design and durability.
+                </p>
+                <div class="hero-cta-wrapper fade-anim">
+                    <div class="btn-brand-wrapper" id="hero-btn-wrapper">
+                        <button class="scatter-btn" id="hero-scatter-btn" aria-label="Explore Collection">
+                            <div class="text-container" id="hero-btn-text">
+                                <!-- Injected by JS -->
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Right Content: Fluid Rounded Furniture Frame -->
+            <div class="hero-img-container hover-target">
+                <img src="Assests/2026-01-20.jpg" 
+                     onerror="this.src='Assests/unnamed (10).jpg'"
+                     alt="Luxury Handcrafted Wardrobe" 
+                     class="hero-img-inner">
+            </div>
+
+            <!-- 3. Floating Detail Images -->
+            <div class="gallery-img gal-1 hover-target">
+                <img src="Assests/unnamed (10).jpg" alt="Exquisite Wardrobe Detail" class="gal-img-inner gal-inner-1">
+            </div>
+            <div class="gallery-img gal-2 hover-target">
+                <img src="Assests/unnamed (2).jpg" alt="Premium Kitchen Woodwork" class="gal-img-inner gal-inner-2">
+            </div>
+
+        </div>
+    </div>
+
+    <!-- --- ABOUT US SECTION: Pinned Storytelling --- -->
+    <section id="about-story" class="about-section">
+        <div class="about-pinned-height">
+            <div class="about-sticky-container">
+                <div class="about-grid">
+                    
+                    <!-- Left: Textual Narrative -->
+                    <div class="about-content-stack">
+                        <div class="about-progress-system">
+                            <div class="about-progress-bar" id="about-pb"></div>
+                        </div>
+
+                        <!-- Narrative 1 -->
+                        <div class="about-slide active" id="slide-0" data-index="0">
+                            <span class="about-tag">01 &mdash; The Philosophy</span>
+                            <h3 class="about-title">The language of <span>precision</span> & durability.</h3>
+                            <p class="about-desc">Malik Woodworks is built on the foundation of uncompromising quality. We believe your home deserves more than just furniture; it deserves a unique identity.</p>
+                        </div>
+
+                        <!-- Narrative 2 -->
+                        <div class="about-slide" id="slide-1" data-index="1">
+                            <span class="about-tag">02 &mdash; The Craft</span>
+                            <h3 class="about-title">Where hard work meets <span>design</span> excellence.</h3>
+                            <p class="about-desc">Whether it's the intricate patterns of Jali doors or the sleek finish of UV cupboards, our artisans merge traditional hard work with modern aesthetics.</p>
+                        </div>
+
+                        <!-- Narrative 3 -->
+                        <div class="about-slide" id="slide-2" data-index="2">
+                            <span class="about-tag">03 &mdash; The Vision</span>
+                            <h3 class="about-title">Guaranteed for <span>generations</span> to come.</h3>
+                            <p class="about-desc">Our identity is our work. Every project comes with a complete warranty, ensuring that your investment in quality woodcraft stands the test of time.</p>
+                            <div class="btn-brand-wrapper" id="about-btn-wrapper">
+                                <button class="scatter-btn" id="about-scatter-btn">
+                                    <div class="text-container" id="about-btn-text"><!-- Injected --></div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Visual Stage -->
+                    <div class="about-image-stage">
+                        <div class="about-img-layer layer-0" style="z-index: 10;">
+                            <img src="Assests/ai-uv-kitchen-1.png" alt="The Philosophy of Precision">
+                        </div>
+                        <div class="about-img-layer layer-1" style="z-index: 20; clip-path: inset(100% 0 0 0);">
+                            <img src="Assests/ai-jali-door-1.png" alt="The Craft of Jali Design">
+                        </div>
+                        <div class="about-img-layer layer-2" style="z-index: 30; clip-path: inset(100% 0 0 0);">
+                            <img src="Assests/ai-solid-door-1.png" alt="Handcrafted Legacy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- --- SERVICES SECTION: Intro & Horizontal Scroll --- -->
+    <section class="section-intro" id="services-intro">
+        <div class="section-intro-middle">
+            <h1 class="section-intro-title">
+                <span class="intro-title-line"><span class="intro-title-word">Curation of</span></span>
+                <span class="intro-title-line"><span class="intro-title-word"><i class="text-gradient">Pure Artistry.</i></span></span>
+            </h1>
+        </div>
+        <div class="section-intro-bottom">
+            <p class="section-intro-desc">
+                From luxury UV kitchens to bespoke solid wood doors, we provide a spectrum of premium woodcraft services designed with complete warranty and master precision.
+            </p>
+            <div class="intro-scroll-indicator">
+                <span class="intro-scroll-text">Explore Services</span>
+                <div class="intro-scroll-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-section-wrapper" id="services-horizontal">
+        <div class="services-h-scroll" id="services-container">
+            <!-- Panel 01 -->
+            <div class="service-panel">
+                <div class="service-panel-inner">
+                    <img src="Assests/unnamed.jpg" alt="Bespoke UV Kitchen Design" class="service-panel-img">
+                    <div class="service-panel-overlay"></div>
+                    <div class="service-panel-content">
+                        <span class="service-number text-gradient">01</span>
+                        <h2 class="service-title">Kitchens &<br><i class="text-gradient">UV Cabinets.</i></h2>
+                        <p class="service-desc">
+                            High-end UV kitchens and custom cabinets designed for both beauty and utility, built to withstand the rigors of daily life with a complete warranty.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Panel 02 -->
+            <div class="service-panel">
+                <div class="service-panel-inner">
+                    <img src="Assests/ai-luxury-wardrobe-1.png" alt="Luxury UV Cupboards" class="service-panel-img">
+                    <div class="service-panel-overlay"></div>
+                    <div class="service-panel-content">
+                        <span class="service-number text-gradient">02</span>
+                        <h2 class="service-title">Wardrobes &<br><i class="text-gradient">Cupboards.</i></h2>
+                        <p class="service-desc">
+                            Intelligent storage solutions including luxury UV cupboards and walk-in wardrobes, tailored to maximize your space without compromising on style.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Panel 03 -->
+            <div class="service-panel">
+                <div class="service-panel-inner">
+                    <img src="Assests/unnamed (4).jpg" alt="Grand Jali & Solid Doors" class="service-panel-img">
+                    <div class="service-panel-overlay"></div>
+                    <div class="service-panel-content">
+                        <span class="service-number text-gradient">03</span>
+                        <h2 class="service-title">Solid &<br><i class="text-gradient">Jali Doors.</i></h2>
+                        <p class="service-desc">
+                            From grand Solid Doors to intricate Jali and Malaysia Panel designs, we create entrances that make a lasting statement of elegance.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Panel 04 -->
+            <div class="service-panel">
+                <div class="service-panel-inner">
+                    <img src="Assests/2023-09-24.jpg" alt="Expert Wood Work" class="service-panel-img">
+                    <div class="service-panel-overlay"></div>
+                    <div class="service-panel-content">
+                        <span class="service-number text-gradient">04</span>
+                        <h2 class="service-title">Bespoke<br><i class="text-gradient">Woodwork.</i></h2>
+                        <p class="service-desc">
+                            Every type of expert wood work, delivered with the hallmark of Malik Woodworks' dedication, hard work, and superior design quality.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Outro -->
+    <section class="outro-section" id="services-outro">
+        <h2 class="outro-title">
+            <span class="title-line">Ready to translate</span>
+            <span class="title-line"><i class="text-gradient">your vision into reality?</i></span>
+        </h2>
+        <p class="outro-desc">Our design atelier is ready to bring your bespoke furniture concepts to life with absolute precision.</p>
+        
+        <div class="btn-brand-wrapper" id="services-outro-btn-wrapper">
+            <button class="scatter-btn" id="services-outro-scatter-btn">
+                <div class="text-container" id="services-outro-btn-text">
+                    <!-- Injected -->
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <!-- --- PORTFOLIO SECTION: Intro --- -->
+    <section class="section-intro" id="portfolio-intro">
+        <div class="section-intro-middle">
+            <h1 class="section-intro-title">
+                <span class="intro-title-line"><span class="intro-title-word">Exhibition of</span></span>
+                <span class="intro-title-line"><span class="intro-title-word"><i class="text-gradient">Enduring Legacies.</i></span></span>
+            </h1>
+        </div>
+        <div class="section-intro-bottom">
+            <p class="section-intro-desc">
+                A curated visual narrative of our most profound woodcraft, where raw material meets refined design to forge spaces of unparalleled distinction.
+            </p>
+            <div class="intro-scroll-indicator">
+                <span class="intro-scroll-text">Explore Portfolio</span>
+                <div class="intro-scroll-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- PORTFOLIO SECTION: Z-Depth Dive --- -->
+    <section id="z-space-container">
+        <!-- Global UI Overlay -->
+        <div class="ui-counter">
+            <span id="counter">01 / 04</span>
+        </div>
+
+        <!-- Z-Items Stack -->
+        <div id="z-stack" class="z-stack-container">
+            <!-- ITEM 01 -->
+            <div class="z-item" data-index="1">
+                <div class="tilt-wrapper">
+                    <img class="main-img" src="Assests/1 (1).png" alt="Signature UV Kitchen">
+                    <div class="img-overlay gradient-1"></div>
+                    <div class="z-text">
+                        <span class="subtitle">01 &mdash; Kitchen Systems</span>
+                        <h2 class="title-main">Signature <span class="italic-accent">UV Kitchen</span></h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ITEM 02 -->
+            <div class="z-item" data-index="2">
+                <div class="tilt-wrapper">
+                    <img class="main-img" src="Assests/1 (4).png" alt="Grand Entrance Solid Door">
+                    <div class="img-overlay gradient-2"></div>
+                    <div class="z-text">
+                        <span class="subtitle">02 &mdash; Grand Entrances</span>
+                        <h2 class="title-main">Solid Wood <span class="italic-accent">Doors</span></h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ITEM 03 -->
+            <div class="z-item" data-index="3">
+                <div class="tilt-wrapper">
+                    <img class="main-img" src="Assests/1 (2).png" alt="Bespoke UV Cupboards">
+                    <div class="img-overlay gradient-3"></div>
+                    <div class="z-text">
+                        <span class="subtitle">03 &mdash; Storage Architecture</span>
+                        <h2 class="title-main">Bespoke <span class="italic-accent">Cupboards</span></h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ITEM 04 -->
+            <div class="z-item" data-index="4">
+                <div class="tilt-wrapper">
+                    <img class="main-img" src="Assests/1 (3).png" alt="Intricate Jali Artistry">
+                    <div class="img-overlay gradient-4"></div>
+                    <div class="z-text">
+                        <span class="subtitle">04 &mdash; Artistic Panels</span>
+                        <h2 class="title-main">Intricate <span class="italic-accent">Jali Work</span></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Outro -->
+    <section class="outro-section" id="portfolio-outro">
+        <h2 class="outro-title">
+            <span class="title-line">The journey from raw material</span>
+            <span class="title-line">to <i class="text-gradient">timeless masterpiece.</i></span>
+        </h2>
+        <p class="outro-desc">Every piece in our portfolio represents a commitment to excellence. Your space deserves the same level of architectural dedication.</p>
+        
+        <div class="btn-brand-wrapper" id="portfolio-outro-btn-wrapper">
+            <button class="scatter-btn" id="portfolio-outro-scatter-btn">
+                <div class="text-container" id="portfolio-outro-btn-text">
+                    <!-- Injected -->
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <!-- --- TESTIMONIAL SECTION: Intro --- -->
+    <section class="section-intro" id="testimonials-intro">
+        <div class="section-intro-middle">
+            <h1 class="section-intro-title">
+                <span class="intro-title-line"><span class="intro-title-word">Echoes of</span></span>
+                <span class="intro-title-line"><span class="intro-title-word"><i class="text-gradient">Pure Satisfaction.</i></span></span>
+            </h1>
+        </div>
+        <div class="section-intro-bottom">
+            <p class="section-intro-desc">
+                Experience the reflections of our elite clientele. Every UV Kitchen, Bespoke Wardrobe, and Solid Wood Door we've crafted is a testament to our architectural legacy.
+            </p>
+            <div class="intro-scroll-indicator">
+                <span class="intro-scroll-text">Client Reflections</span>
+                <div class="intro-scroll-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- TESTIMONIAL SECTION: Scrollytelling Display --- -->
+    <section class="testimonial-scrolly-section">
+        
+        <!-- Large Background Initial Watermark -->
+        <div id="testimonial-bg-watermark" class="testimonial-watermark">4.9</div>
+
+        <div class="testimonial-wrapper">
+            
+            <!-- Left Area: Immersive Image with Parallax wrapper -->
+            <div class="testimonial-left" id="testimonial-parallax-wrap">
+                <div class="testimonial-decor-border" id="testimonial-decor-border"></div>
+                <div class="testimonial-image-container" id="testimonial-image-container">
+                    <!-- Images wrappers injected via JS -->
+                </div>
+            </div>
+
+            <!-- Right Area: Overlapping Text Card -->
+            <div class="testimonial-right">
+                <div class="testimonial-card">
+                    <span class="testimonial-bg-quote">"</span>
+
+                    <div id="testimonial-text-display" class="testimonial-text-container">
+                        <!-- Text injected via JS -->
+                    </div>
+
+                    <!-- Navigation and Progress -->
+                    <div class="testimonial-nav">
+                        <div class="t-progress-group">
+                            <div class="t-progress-circle-wrap">
+                                <svg viewBox="0 0 56 56">
+                                    <circle cx="28" cy="28" r="26" fill="transparent" class="t-progress-track" stroke-width="1.5" />
+                                    <defs>
+                                        <linearGradient id="t-ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="var(--color-dark-teak)" />
+                                            <stop offset="100%" stop-color="var(--color-deep-earth)" />
+                                        </linearGradient>
+                                    </defs>
+                                    <circle id="t-progress-circle" class="t-progress-ring-circle" cx="28" cy="28" r="26" fill="transparent" stroke="url(#t-ringGrad)" stroke-width="1.5" stroke-dasharray="163.36" stroke-dashoffset="163.36" stroke-linecap="round" />
+                                </svg>
+                                <span id="t-current-slide-num" class="t-current-slide">01</span>
+                            </div>
+                            <div class="t-progress-separator"></div>
+                            <span id="t-total-slides-num" class="t-total-slides">05</span>
+                        </div>
+
+                        <div class="t-nav-buttons">
+                            <div class="t-magnetic-wrap">
+                                <button id="t-prev-btn" class="t-nav-btn">
+                                    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                                </button>
+                            </div>
+                            <div class="t-magnetic-wrap">
+                                <button id="t-next-btn" class="t-nav-btn">
+                                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Testimonials Outro -->
+    <section class="outro-section" id="testimonials-outro">
+        <h2 class="outro-title">
+            <span class="title-line">Experience the</span>
+            <span class="title-line"><i class="text-gradient">MALIK standards.</i></span>
+        </h2>
+        <p class="outro-desc">From seamless UV finishes to grand solid wood entrances, our craftsmanship is designed to elevate every corner of your home. Experience the Malik Woodworks difference.</p>
+        
+        <div class="btn-brand-wrapper" id="testimonials-outro-btn-wrapper">
+            <button class="scatter-btn" id="testimonials-outro-scatter-btn">
+                <div class="text-container" id="testimonials-outro-btn-text">
+                    <!-- Injected -->
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <!-- SECTION INDICATOR (Contact Intro) -->
+    <section id="contact-indicator" class="hero-indicator">
+        <div id="circle-text-contact" class="circle-text-wrapper">
+            <svg viewBox="0 0 200 200" class="circle-svg">
+                <path id="circlePathContact" d="M 100, 100 m -85, 0 a 85,85 0 1,1 170,0 a 85,85 0 1,1 -170,0" fill="transparent" />
+                <text class="circle-text">
+                    <textPath href="#circlePathContact" startOffset="0%" textLength="534" lengthAdjust="spacing">
+                        • bespoke design • luxury interiors • bespoke design • luxury interiors 
+                    </textPath>
+                </text>
+            </svg>
+        </div>
+        <div class="hero-line-indicator"></div>
+    </section>
+
+    <!-- CONTACT SPLIT REVEAL -->
+    <section id="contact-split-container" class="split-container">
+        
+        <div class="deep-bg"></div>
+
+        <!-- THE FORM -->
+        <div class="form-wrapper">
+            <div id="contact-form-card" class="luxury-form-card">
+                
+                <div class="watermark-logo">
+                    <img src="logo.png" alt="Malik Wood Works Logo Watermark" />
+                </div>
+                
+                <div class="form-header-box">
+                    <div class="reveal-header atelier-label-box">
+                        <div class="atelier-line"></div>
+                        <span class="atelier-text">Contact Our Atelier</span>
+                        <div class="atelier-line"></div>
+                    </div>
+                    <h3 class="reveal-header form-heading">Share Your Vision</h3>
+                </div>
+
+                <form class="form-grid" onsubmit="event.preventDefault()">
+                    <div class="reveal-field field-wrapper full-width">
+                        <input type="text" id="fullname" required class="input-base" placeholder=" " />
+                        <label for="fullname" class="field-label">Full Name</label>
+                    </div>
+
+                    <div class="reveal-field field-wrapper">
+                        <input type="email" id="email" required class="input-base" placeholder=" " />
+                        <label for="email" class="field-label">Email Address</label>
+                    </div>
+
+                    <div class="reveal-field field-wrapper">
+                        <input type="tel" id="whatsapp" required class="input-base" placeholder=" " />
+                        <label for="whatsapp" class="field-label">WhatsApp Number</label>
+                    </div>
+
+                    <div class="reveal-field field-wrapper full-width">
+                        <textarea id="details" rows="2" required class="input-base textarea-base" placeholder=" "></textarea>
+                        <label for="details" class="field-label">Project Details</label>
+                    </div>
+
+                    <div class="reveal-field full-width submit-wrapper">
+                        <div class="btn-brand-wrapper" id="contact-submit-btn-wrapper">
+                            <button id="contact-submit-btn" class="scatter-btn" type="submit">
+                                <div id="contact-submit-btn-text" class="text-container">
+                                    <!-- Injected -->
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- TOP SPLIT LAYER -->
+        <div id="top-split-contact" class="split-layer clip-top">
+            <div class="cover-content">
+                <div class="cover-image-box">
+                    <img src="Assests/unnamed (7).jpg" alt="Luxury Interior" class="cover-image" />
+                </div>
+                <div class="cover-text-box">
+                    <span class="cover-eyebrow">Bespoke Collection</span>
+                    <h2 class="cover-heading">
+                        Your <span class="text-gradient">Dream Home</span> <br/>
+                        Our Craft.
+                    </h2>
+                    <div class="cover-footer">
+                        <div class="cover-footer-line"></div>
+                        <span class="cover-footer-text">Scroll to explore</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM SPLIT LAYER -->
+        <div id="bottom-split-contact" class="split-layer clip-bottom">
+            <div class="cover-content">
+                <div class="cover-image-box">
+                    <img src="Assests/unnamed (7).jpg" alt="Luxury Interior" class="cover-image" />
+                </div>
+                <div class="cover-text-box">
+                    <span class="cover-eyebrow">Bespoke Collection</span>
+                    <h2 class="cover-heading">
+                        Your <span class="text-gradient">Dream Home</span> <br/>
+                        Our Craft.
+                    </h2>
+                    <div class="cover-footer">
+                        <div class="cover-footer-line"></div>
+                        <span class="cover-footer-text">Scroll to explore</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Empty space for scroll past -->
+    <!-- THE MONOLITH FOOTER -->
+    <div class="monolith-wrapper">
+        <footer class="monolith-container" id="monolith-footer">
+            
+            <!-- Pillar 1: Shop -->
+            <div class="pillar">
+                <img src="Assests/unnamed (12).jpg" class="pillar-bg" alt="Wardrobe Design">
+                <div class="pillar-overlay"></div>
+                <h2 class="pillar-title">Shop</h2>
+                <div class="pillar-content">
+                    <span class="p-subtitle">01 // Explore</span>
+                    <h3 class="p-title">Home<br/><span>Arrivals</span></h3>
+                    <div class="pillar-links">
+                        <a href="#" class="monolith-link">UV Kitchens</a>
+                        <a href="#" class="monolith-link">Cupboards & UV Cabinets</a>
+                        <a href="#" class="monolith-link">Solid Wood Doors</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pillar 2: Collections -->
+            <div class="pillar">
+                <img src="Assests/unnamed (2).jpg" class="pillar-bg" alt="Luxury Collections">
+                <div class="pillar-overlay overlay-custom-1"></div>
+                <h2 class="pillar-title">Collections</h2>
+                <div class="pillar-content">
+                    <span class="p-subtitle">02 // Curated</span>
+                    <h3 class="p-title">Kitchen<br/><span>Legacies</span></h3>
+                    <p class="p-desc">Deeply rooted in natural aesthetics, our signature series define the essence of luxury living.</p>
+                    <div class="pillar-links">
+                        <a href="#" class="monolith-link">The Earth Series</a>
+                        <a href="#" class="monolith-link">Minimalist Era</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pillar 3: Bespoke -->
+            <div class="pillar">
+                <img src="Assests/2023-09-24 (1).jpg" class="pillar-bg" alt="Kitchen Bespoke">
+                <div class="pillar-overlay overlay-custom-2"></div>
+                <h2 class="pillar-title">Bespoke</h2>
+                <div class="pillar-content">
+                    <span class="p-subtitle">03 // Custom</span>
+                    <h3 class="p-title">Crafted<br/><span>For You</span></h3>
+                    <p class="p-desc">Collaborate with our designers to translate your unique vision into hand-finished reality.</p>
+                    <div class="btn-brand-wrapper" id="footer-scatter-wrapper">
+                        <button class="scatter-btn" id="footer-scatter-btn">
+                            <div class="text-container" id="footer-scatter-text"><!-- Injected --></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pillar 4: Contact -->
+            <div class="pillar">
+                <img src="Assests/unnamed (11).jpg" class="pillar-bg" alt="Consult our Studio">
+                <div class="pillar-overlay"></div>
+                <h2 class="pillar-title">Contact</h2>
+                <div class="pillar-content">
+                    <span class="p-subtitle">04 // Connect</span>
+                    <h3 class="p-title">Studio<br/><span>Atelier</span></h3>
+                    <div class="pillar-links">
+                        <a href="mailto:info@malikwoodworks.com" class="monolith-link">info@malikwoodworks.com</a>
+                        <span class="monolith-link">DHA Phase 5, Lahore</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="footer-bottom-bar">
+                <div class="f-logo">MALIK</div>
+                <div class="f-copy">&copy; 2026 MALIK WOOD WORKS.</div>
+                <div class="social-coins">
+                    <a href="#" class="social-coin"><i class="ph ph-instagram-logo"></i></a>
+                    <a href="#" class="social-coin"><i class="ph ph-pinterest-logo"></i></a>
+                    <a href="#" class="social-coin"><i class="ph ph-linkedin-logo"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // --- 1. Butter Smooth Lenis Scroll (Elite Config) ---
+            const lenis = new Lenis({
+                duration: 1.4,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smoothWheel: true,
+                wheelMultiplier: 1,
+                touchMultiplier: 2,
+                infinite: false,
+            });
+
+            // Unified Clock: Use GSAP Ticker only to prevent desync micro-jitter
+            function updateLenis(time) {
+                lenis.raf(time * 1000);
+            }
+            
+            gsap.ticker.add(updateLenis);
+            gsap.ticker.lagSmoothing(0);
+
+            gsap.registerPlugin(ScrollTrigger);
+            lenis.on('scroll', ScrollTrigger.update);
+
+            // --- 2. Initial States & Intro Animations ---
+            // RESTORED: Initial rotation from hero.html
+            gsap.set('.hero-img-container', { rotation: -3 });
+            gsap.set('.hero-img-inner', { rotation: 3, scale: 1.15 });
+
+            gsap.from('.title-anim', {
+                y: '120%', 
+                duration: 1.5,
+                stagger: 0.15,
+                ease: 'expo.out',
+                delay: 0.2
+            });
+
+            gsap.from('.fade-anim', {
+                y: 30,
+                opacity: 0,
+                duration: 1.5,
+                stagger: 0.15,
+                ease: 'power3.out',
+                delay: 0.5
+            });
+
+            // --- 3. The Grand Scroll Sequence: Match hero.html logic ---
+            const scrollTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.scroll-distance',
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: 1.2 
+                }
+            });
+
+            scrollTl
+                .to('.fade-on-scroll', {
+                    yPercent: -50,
+                    opacity: 0,
+                    ease: 'power2.inOut'
+                }, 0)
+
+                .to('.hero-img-container', {
+                    width: '100vw',
+                    height: '100vh',
+                    top: 0,
+                    right: 0,
+                    rotation: 0,
+                    borderRadius: 0,
+                    ease: 'power2.inOut'
+                }, 0)
+                
+                .to('.hero-img-inner', {
+                    rotation: 0,
+                    scale: 1,
+                    ease: 'power2.inOut'
+                }, 0)
+
+                .to('.gal-1', {
+                    y: '-100vh',
+                    rotation: -10,
+                    ease: 'none'
+                }, 0)
+                .to('.gal-inner-1', {
+                    scale: 1,
+                    ease: 'none'
+                }, 0)
+
+                .to('.gal-2', {
+                    y: '100vh', 
+                    rotation: 10,
+                    ease: 'none'
+                }, 0)
+                .to('.gal-inner-2', {
+                    scale: 1,
+                    ease: 'none'
+                }, 0);
+
+            // --- 4. Brand Button: Quantum Scatter Logic ---
+            function initScatterButton(wrapperId, textId, label) {
+                const wrapper = document.getElementById(wrapperId);
+                const container = document.getElementById(textId);
+                
+                if (!wrapper || !container) return;
+
+                // Split text into spans
+                container.innerHTML = label.split('').map(char => 
+                    char === ' ' ? `<span class="space-span"></span>` : `<span class="char-span">${char}</span>`
+                ).join('');
+
+                const chars = container.querySelectorAll('.char-span');
+
+                wrapper.addEventListener('mousemove', (e) => {
+                    const rect = wrapper.getBoundingClientRect();
+                    const mX = e.clientX;
+                    const mY = e.clientY;
+
+                    chars.forEach(char => {
+                        const cRect = char.getBoundingClientRect();
+                        const cX = cRect.left + cRect.width / 2;
+                        const cY = cRect.top + cRect.height / 2;
+                        
+                        const dx = mX - cX;
+                        const dy = mY - cY;
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+                        
+                        if (dist < 100) { 
+                            const push = (100 - dist) / 100;
+                            gsap.to(char, { 
+                                x: -(dx/dist) * push * 50, 
+                                y: -(dy/dist) * push * 50, 
+                                z: -push * 150,
+                                rotationX: dy * 0.4,
+                                rotationY: dx * 0.4,
+                                rotationZ: (Math.random() - 0.5) * 40 * push,
+                                opacity: 1 - (push * 0.4),
+                                color: '#4E5340', // var(--color-muted-forest)
+                                duration: 0.3,
+                                ease: "power2.out"
+                            });
+                        } else {
+                            gsap.to(char, { 
+                                x: 0, y: 0, z: 0, 
+                                rotationX: 0, rotationY: 0, rotationZ: 0, 
+                                opacity: 1, 
+                                color: '#E3DCCF', // var(--color-pale-clay)
+                                duration: 0.6, 
+                                ease: "back.out(1.2)" 
+                            });
+                        }
+                    });
+                });
+
+                wrapper.addEventListener('mouseleave', () => {
+                    gsap.to(chars, { 
+                        x: 0, y: 0, z: 0, 
+                        rotationX: 0, rotationY: 0, rotationZ: 0, 
+                        opacity: 1, 
+                        color: '#E3DCCF', 
+                        duration: 0.8, 
+                        ease: "expo.out", 
+                        stagger: 0.01
+                    });
+                });
+            }
+
+            initScatterButton('hero-btn-wrapper', 'hero-btn-text', 'Explore Collection');
+
+            // --- 5. About Us: Storytelling Scrub Logic ---
+            const aboutSlides = gsap.utils.toArray('.about-slide');
+            const aboutLayers = gsap.utils.toArray('.about-img-layer').slice(1); // Exclude base layer
+
+            const aboutTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".about-section",
+                    start: "top top",
+                    end: "+=250%", 
+                    scrub: 1,
+                    pin: true,
+                    anticipatePin: 1
+                }
+            });
+
+
+            // Transition: 1 to 2
+            aboutTl.to(aboutSlides[0], { opacity: 0, y: -40, duration: 1 }, 0.2);
+            aboutTl.to(aboutLayers[0], { clipPath: 'inset(0% 0 0 0)', duration: 2, ease: 'power2.inOut' }, 0.2);
+            aboutTl.to(aboutSlides[1], { opacity: 1, y: 0, duration: 1 }, 1.2);
+
+            // Transition: 2 to 3
+            aboutTl.to(aboutSlides[1], { opacity: 0, y: -40, duration: 1 }, 2.5);
+            aboutTl.to(aboutLayers[1], { clipPath: 'inset(0% 0 0 0)', duration: 2, ease: 'power2.inOut' }, 2.5);
+            aboutTl.to(aboutSlides[2], { opacity: 1, y: 0, duration: 1 }, 3.5);
+
+            // Final transition finished. No extra buffer.
+
+            // Sync progress bar: Match original's duration exactly
+            aboutTl.to('#about-pb', { 
+                scaleY: 1, 
+                ease: 'none', 
+                duration: aboutTl.duration() 
+            }, 0);
+
+            // Init secondary brand button
+            initScatterButton('about-btn-wrapper', 'about-btn-text', 'Our Legacy');
+
+            // --- 6. Services Section: Horizontal Scroll & Dynamic Proximity Scale ---
+            const sWrapper = document.getElementById('services-horizontal');
+            const sContainer = document.getElementById('services-container');
+            const sPanels = gsap.utils.toArray('.service-panel');
+            const sInners = gsap.utils.toArray('.service-panel-inner');
+            const sImages = gsap.utils.toArray('.service-panel-img');
+            const sContents = gsap.utils.toArray('.service-panel-content');
+            const sOverlays = gsap.utils.toArray('.service-panel-overlay');
+
+            let sScrollTween = gsap.to(sContainer, {
+                x: () => -(sContainer.scrollWidth - window.innerWidth),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: sWrapper,
+                    pin: true,
+                    scrub: 1,
+                    end: () => "+=" + (sContainer.scrollWidth),
+                    invalidateOnRefresh: true
+                }
+            });
+
+            function updateServicesScaling() {
+                let windowCenter = window.innerWidth / 2;
+                
+                sPanels.forEach((panel, i) => {
+                    let rect = panel.getBoundingClientRect();
+                    let panelCenter = rect.left + (rect.width / 2);
+                    
+                    let dist = Math.abs(windowCenter - panelCenter);
+                    let maxDist = window.innerWidth * 0.8;
+                    
+                    let progress = Math.min(dist / maxDist, 1);
+                    let easeProgress = Math.pow(progress, 0.85);
+
+                    let scale = 1 - (0.35 * easeProgress); 
+                    let radius = 60 * easeProgress; 
+                    let textOpacity = 1 - (progress * 2.5);
+                    let textY = 60 * progress;
+                    let direction = (panelCenter > windowCenter) ? 1 : -1;
+                    let imageScale = 1.15 + (0.15 * easeProgress); 
+                    let imageX = 10 * progress * direction; 
+                    let overlayAlpha = 0.4 + (0.4 * easeProgress);
+
+                    gsap.set(sInners[i], {
+                        scale: scale,
+                        borderRadius: radius + 'px',
+                        force3D: true
+                    });
+
+                    gsap.set(sImages[i], {
+                        xPercent: imageX,
+                        scale: imageScale,
+                        force3D: true
+                    });
+
+                    gsap.set(sOverlays[i], { opacity: overlayAlpha });
+                    gsap.set(sContents[i], {
+                        opacity: Math.max(0, textOpacity),
+                        y: textY
+                    });
+                });
+            }
+
+            gsap.ticker.add(updateServicesScaling);
+
+            // --- 7. Section Intro Initialization ---
+            function initSectionIntro(sectionSelector) {
+                const section = document.querySelector(sectionSelector);
+                if (!section) return;
+
+                const words = section.querySelectorAll('.intro-title-word');
+                const bottomBar = section.querySelector('.section-intro-bottom');
+
+                gsap.to(words, {
+                    y: 0,
+                    duration: 1.4,
+                    stagger: 0.15,
+                    ease: "power4.out",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 80%",
+                    }
+                });
+
+                gsap.to(bottomBar, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 70%",
+                    }
+                });
+            }
+
+            // Init Service Outro Button
+            initScatterButton('services-outro-btn-wrapper', 'services-outro-btn-text', 'Get a Quote');
+
+            // Init All Section Intros
+            initSectionIntro('#services-intro');
+            initSectionIntro('#portfolio-intro');
+
+            // --- PORTFOLIO Z-DEPTH DIVE LOGIC ---
+            function initPortfolioZDepth() {
+                const items = gsap.utils.toArray(".z-item");
+                const counter = document.getElementById("counter");
+                if (!items.length || !counter) return;
+
+                const totalItems = items.length;
+
+                // Color mapping to strict variables
+                const bgColors = [
+                    { center: 'var(--color-deep-earth)', outer: 'var(--color-black)' }, 
+                    { center: 'var(--color-muted-forest)', outer: 'var(--color-black)' }, 
+                    { center: 'var(--color-dark-teak)', outer: 'var(--color-pale-clay)' }, 
+                    { center: 'var(--color-black)', outer: 'var(--color-deep-earth)' }  
+                ];
+
+                const zTimeline = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#z-space-container",
+                        start: "top top",
+                        end: `+=${totalItems * 100}%`, 
+                        pin: true,
+                        scrub: 1, 
+                        onUpdate: (self) => {
+                            let activeIndex = Math.min(Math.floor(self.progress * totalItems) + 1, totalItems);
+                            counter.innerHTML = `0${activeIndex} / 0${totalItems}`;
+                        }
+                    }
+                });
+
+                // Set Initial States
+                items.forEach((item, i) => {
+                    if (i === 0) {
+                        gsap.set(item, { scale: 1, opacity: 1, filter: "blur(0px)", zIndex: totalItems });
+                    } else {
+                        gsap.set(item, { scale: 0.15, opacity: 0, filter: "blur(20px)", zIndex: totalItems - i });
+                    }
+                });
+
+                gsap.set("#z-space-container", {
+                    "--bg-center": bgColors[0].center,
+                    "--bg-outer": bgColors[0].outer
+                });
+
+                items.forEach((item, i) => {
+                    if (i > 0) {
+                        zTimeline.fromTo(item, 
+                            { scale: 0.15, opacity: 0, filter: "blur(20px)" },
+                            { scale: 1, opacity: 1, filter: "blur(0px)", duration: 1, ease: "power1.inOut" },
+                            i - 1 
+                        );
+                    }
+
+                    if (i < totalItems - 1) {
+                        zTimeline.fromTo(item, 
+                            { scale: 1, opacity: 1, filter: "blur(0px)" }, 
+                            { scale: 6, opacity: 0, filter: "blur(30px)", duration: 1, ease: "power1.in" },
+                            i 
+                        );
+                        
+                        zTimeline.fromTo(item.querySelector('.z-text'), 
+                            { opacity: 1, z: 100 },
+                            { opacity: 0, z: 500, duration: 0.8, ease: "power1.in" },
+                            i
+                        );
+
+                        zTimeline.to("#z-space-container", {
+                            "--bg-center": bgColors[i + 1].center,
+                            "--bg-outer": bgColors[i + 1].outer,
+                            duration: 1,
+                            ease: "power1.inOut"
+                        }, i);
+                    }
+                });
+
+                // Interactive 3D Mouse Tilting (Disabled on Mobile for Performance)
+                const container = document.getElementById("z-space-container");
+                container.addEventListener('mousemove', (e) => {
+                    if (window.innerWidth <= 1024) return;
+                    const xPos = (e.clientX / window.innerWidth - 0.5) * 2;
+                    const yPos = (e.clientY / window.innerHeight - 0.5) * 2;
+
+                    const tiltWrappers = document.querySelectorAll('.tilt-wrapper');
+                    gsap.to(tiltWrappers, {
+                        rotationY: xPos * 10,
+                        rotationX: -yPos * 10,
+                        ease: "power2.out",
+                        duration: 1
+                    });
+                    
+                    const zTexts = document.querySelectorAll('.z-text');
+                    gsap.to(zTexts, {
+                        x: -xPos * 30,
+                        y: -yPos * 30,
+                        ease: "power2.out",
+                        duration: 1
+                    });
+                });
+
+                container.addEventListener('mouseleave', () => {
+                    gsap.to('.tilt-wrapper', { rotationY: 0, rotationX: 0, ease: "power2.out", duration: 1 });
+                    gsap.to('.z-text', { x: 0, y: 0, ease: "power2.out", duration: 1 });
+                });
+            }
+
+            initPortfolioZDepth();
+
+            // Init Portfolio Outro Button
+            initScatterButton('portfolio-outro-btn-wrapper', 'portfolio-outro-btn-text', 'Inquire Now');
+
+            // --- 8. Testimonials: Scrollytelling Display ---
+            function initTestimonials() {
+                const testimonials = [
+                    {
+                        quote: "The UV Kitchen transformation exceeded my expectations. Malik Woodworks' attention to detail in the seamless cabinetry finish and precision layout is unparalleled.",
+                        author: "Sajid Zardari",
+                        role: "Business Owner",
+                        image: "Assests/t-kitchen.png"
+                    },
+                    {
+                        quote: "My entrance now makes a statement. The Solid Wood Door they crafted is not just a doorway, but a piece of architectural art. Durable, heavy-duty, and stunningly beautiful.",
+                        author: "Etzaz ul Hassan",
+                        role: "Homeowner",
+                        image: "Assests/t-solid-door.png"
+                    },
+                    {
+                        quote: "The Intricate Jali Work provided a soul to our living area. Their Malaysian panel designs combined with handcrafted tradition represent the pinnacle of woodcraft.",
+                        author: "Sunny Sunny",
+                        role: "Interior Designer",
+                        image: "Assests/t-jali.png"
+                    },
+                    {
+                        quote: "From custom cabinets to Bespoke Cupboards, the engineering behind their wood work is impressive. They managed to maximize our storage while maintaining a luxury aesthetic.",
+                        author: "Ahmed Shah",
+                        role: "Private Client",
+                        image: "Assests/t-wardrobe.png"
+                    },
+                    {
+                        quote: "Malik Woodworks is our go-to for Elite Woodcraft. Their commitment to design excellence and the complete warranty they provide gives us absolute peace of mind.",
+                        author: "BIG SHOT",
+                        role: "Architectural Lead",
+                        image: "Assests/2026-01-20 (2).jpg"
+                    }
+                ];
+
+                const textContainer = document.getElementById('testimonial-text-display');
+                const imageContainer = document.getElementById('testimonial-image-container');
+                const currentSlideEl = document.getElementById('t-current-slide-num');
+                const totalSlidesEl = document.getElementById('t-total-slides-num');
+                const nextBtn = document.getElementById('t-next-btn');
+                const prevBtn = document.getElementById('t-prev-btn');
+                const bgWatermark = document.getElementById('testimonial-bg-watermark');
+                const progressCircle = document.getElementById('t-progress-circle');
+                const parallaxWrap = document.getElementById('testimonial-parallax-wrap');
+                const decorBorder = document.getElementById('testimonial-decor-border');
+
+                if (!textContainer || !imageContainer) return;
+
+                let currentIndex = 0;
+                let isAnimating = false;
+                const total = testimonials.length;
+                let autoPlayTimer;
+                const autoPlayDuration = 6000; 
+                let startTime;
+
+                function splitTextIntoSpans(text) {
+                    return text.split(' ').map(word => `<span class="t-word-mask"><span class="t-word-inner">${word}</span></span>`).join(' ');
+                }
+
+                function renderText(index) {
+                    const item = testimonials[index];
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 't-text-wrapper';
+                    wrapper.id = `t-text-${index}`;
+                    
+                    wrapper.innerHTML = `
+                        <h2 class="t-quote-title">
+                            ${splitTextIntoSpans(item.quote)}
+                        </h2>
+                        <div class="t-author-info">
+                            <div class="t-author-line"></div>
+                            <div>
+                                <p class="t-author-name">${item.author}</p>
+                                <p class="t-author-role">${item.role}</p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    textContainer.appendChild(wrapper);
+
+                    gsap.to(bgWatermark, {
+                        opacity: 0, scale: 0.9, duration: 0.4, onComplete: () => {
+                            bgWatermark.innerText = item.author.charAt(0);
+                            gsap.to(bgWatermark, { opacity: 0.03, scale: 1, duration: 1, ease: "power3.out" });
+                        }
+                    });
+
+                    const tl = gsap.timeline();
+                    tl.to(wrapper.querySelectorAll('.t-word-inner'), {
+                        y: '0%',
+                        duration: 0.8,
+                        stagger: 0.025,
+                        ease: "power4.out",
+                        delay: 0.2
+                    })
+                    .to(wrapper.querySelector('.t-author-info'), {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        ease: "power3.out"
+                    }, "-=0.6");
+                }
+
+                function changeSlide(direction, manual = false) {
+                    if (isAnimating) return;
+                    isAnimating = true;
+
+                    if (manual) {
+                        resetAutoPlay();
+                    }
+
+                    const oldIndex = currentIndex;
+                    currentIndex = direction === 'next' ? (currentIndex + 1) % total : (currentIndex - 1 + total) % total;
+
+                    currentSlideEl.innerText = `0${currentIndex + 1}`;
+
+                    const oldText = document.getElementById(`t-text-${oldIndex}`);
+                    const oldWrap = document.getElementById(`t-wrap-${oldIndex}`);
+                    const oldImg = document.getElementById(`t-img-${oldIndex}`);
+                    
+                    const newWrap = document.getElementById(`t-wrap-${currentIndex}`);
+                    const newImg = document.getElementById(`t-img-${currentIndex}`);
+
+                    const tl = gsap.timeline({
+                        onComplete: () => {
+                            if (oldText) oldText.remove();
+                            gsap.set(oldWrap, { visibility: 'hidden', zIndex: 0, x: '0%' });
+                            isAnimating = false;
+                        }
+                    });
+
+                    tl.to(oldText.querySelectorAll('.t-word-inner'), {
+                        y: '-110%',
+                        duration: 0.4,
+                        stagger: 0.015,
+                        ease: "power3.in"
+                    }, 0);
+                    
+                    tl.to(oldText.querySelector('.t-author-info'), {
+                        opacity: 0,
+                        y: -10,
+                        duration: 0.4,
+                        ease: "power3.in"
+                    }, 0);
+
+                    gsap.set(newWrap, { visibility: 'visible', zIndex: 2, clipPath: 'none', x: '0%' });
+                    gsap.set(oldWrap, { zIndex: 1 });
+
+                    const clipStart = direction === 'next' ? 'polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)' : 'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)';
+                    const clipEnd = 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)';
+                    
+                    tl.fromTo(newWrap, { clipPath: clipStart }, { clipPath: clipEnd, duration: 1.4, ease: "power4.inOut" }, 0.2);
+                    tl.fromTo(newImg, { scale: 1.25 }, { scale: 1, duration: 1.4, ease: "power4.inOut" }, 0.2);
+                    tl.to(oldWrap, { x: direction === 'next' ? '-20%' : '20%', duration: 1.4, ease: "power4.inOut" }, 0.2);
+                    tl.to(oldImg, { scale: 0.9, duration: 1.4, ease: "power4.inOut" }, 0.2);
+
+                    setTimeout(() => { renderText(currentIndex); }, 600);
+                }
+
+                function updateProgress() {
+                    if (isAnimating) return;
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / autoPlayDuration, 1);
+                    const offset = 163.36 - (progress * 163.36);
+                    gsap.set(progressCircle, { strokeDashoffset: offset });
+                    if (progress >= 1) {
+                        changeSlide('next');
+                        resetAutoPlay();
+                    }
+                }
+
+                function startAutoPlay() {
+                    startTime = Date.now();
+                    gsap.ticker.add(updateProgress);
+                }
+
+                function resetAutoPlay() {
+                    startTime = Date.now();
+                    gsap.set(progressCircle, { strokeDashoffset: 163.36 });
+                }
+
+                function initMagneticButtons() {
+                    document.querySelectorAll('.t-magnetic-wrap').forEach(wrap => {
+                        const btn = wrap.querySelector('button');
+                        wrap.addEventListener('mousemove', (e) => {
+                            const rect = wrap.getBoundingClientRect();
+                            const x = e.clientX - rect.left - rect.width / 2;
+                            const y = e.clientY - rect.top - rect.height / 2;
+                            gsap.to(btn, { x: x * 0.4, y: y * 0.4, duration: 0.4, ease: 'power2.out' });
+                        });
+                        wrap.addEventListener('mouseleave', () => {
+                            gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.3)' });
+                        });
+                    });
+                }
+
+                function initImageParallax() {
+                    document.addEventListener('mousemove', (e) => {
+                        const x = (e.clientX / window.innerWidth - 0.5) * 20;
+                        const y = (e.clientY / window.innerHeight - 0.5) * 20;
+                        gsap.to(imageContainer, { x: x, y: y, duration: 1, ease: "power2.out" });
+                        if(decorBorder) gsap.to(decorBorder, { x: x * 1.5, y: y * 1.5, duration: 1, ease: "power2.out" });
+                    });
+                }
+
+                totalSlidesEl.innerText = `0${total}`;
+                testimonials.forEach((item, index) => {
+                    const wrap = document.createElement('div');
+                    wrap.className = 't-img-wrap';
+                    wrap.id = `t-wrap-${index}`;
+                    gsap.set(wrap, { visibility: index === 0 ? 'visible' : 'hidden', zIndex: index === 0 ? 1 : 0 });
+                    const img = document.createElement('img');
+                    img.src = item.image;
+                    img.alt = item.author;
+                    img.className = 't-img-inner';
+                    img.id = `t-img-${index}`;
+                    wrap.appendChild(img);
+                    imageContainer.appendChild(wrap);
+                });
+
+                renderText(currentIndex);
+                
+                // PERFORMANCE FIX: Only run testimonial autoplay when in viewport
+                ScrollTrigger.create({
+                    trigger: ".testimonial-scrolly-section",
+                    start: "top 80%",
+                    onEnter: () => startAutoPlay(),
+                    onEnterBack: () => startAutoPlay(),
+                    onLeave: () => gsap.ticker.remove(updateProgress),
+                    onLeaveBack: () => gsap.ticker.remove(updateProgress)
+                });
+
+                initMagneticButtons();
+                initImageParallax();
+
+                nextBtn.addEventListener('click', () => changeSlide('next', true));
+                prevBtn.addEventListener('click', () => changeSlide('prev', true));
+            }
+            // --- 7. Header System: Magnetic Menu & Overlay ---
+            function initHeaderSystem() {
+                const header = document.querySelector('.site-header');
+                const menuIcon = document.getElementById('menu-icon');
+                const menuOverlay = document.getElementById('menu-overlay');
+                const menuLinks = document.querySelectorAll('.menu-item');
+                const floatingImgContainer = document.getElementById('floating-cursor-img');
+                const cursorImgInner = document.getElementById('cursor-img-inner');
+                let isMenuOpen = false;
+
+                // Use quickTo for ultra-smooth performance like original header.html
+                const xMove = gsap.quickTo(floatingImgContainer, "left", { duration: 0.5, ease: "power3.out" });
+                const yMove = gsap.quickTo(floatingImgContainer, "top", { duration: 0.5, ease: "power3.out" });
+
+                // Magnetic Menu Icon
+                const magneticMenu = document.getElementById('magnetic-menu-wrap');
+                if(magneticMenu) {
+                    magneticMenu.addEventListener('mousemove', (e) => {
+                        const rect = magneticMenu.getBoundingClientRect();
+                        const x = (e.clientX - rect.left - rect.width/2) * 0.4;
+                        const y = (e.clientY - rect.top - rect.height/2) * 0.4;
+                        gsap.to(menuIcon, { x: x, y: y, duration: 0.6, ease: "power3.out" });
+                    });
+                    magneticMenu.addEventListener('mouseleave', () => {
+                        gsap.to(menuIcon, { x: 0, y: 0, duration: 1, ease: "elastic.out(1, 0.3)" });
+                    });
+                    
+                    magneticMenu.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        isMenuOpen = !isMenuOpen;
+                        if(isMenuOpen) openMenu();
+                        else closeMenu();
+                    });
+                }
+
+                function openMenu() {
+                    gsap.set(menuOverlay, { display: 'flex' });
+                    const tl = gsap.timeline();
+                    tl.to(menuOverlay, { opacity: 1, duration: 0.6, ease: "power3.inOut", pointerEvents: 'auto' })
+                      .to('.header-line.line-1', { rotation: 45, y: 6.5, duration: 0.4, ease: "power3.inOut" }, 0)
+                      .to('.header-line.line-2', { rotation: -45, y: -6.5, width: '100%', duration: 0.4, ease: "power3.inOut" }, 0)
+                      .to('.char', { y: '0%', duration: 1, stagger: 0.02, ease: "expo.out" }, 0.2)
+                      .to('.overlay-element', { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 }, 0.4);
+                    
+                    lenis.stop(); 
+                }
+
+                function closeMenu() {
+                    const tl = gsap.timeline({ 
+                        onComplete: () => {
+                            gsap.set(menuOverlay, { display: 'none' });
+                            lenis.start();
+                        }
+                    });
+                    tl.to('.char', { y: '110%', duration: 0.4, stagger: 0.01, ease: "power2.in" })
+                      .to(menuOverlay, { opacity: 0, duration: 0.5, ease: "power3.inOut", pointerEvents: 'none' }, 0.1)
+                      .to('.header-line.line-1', { rotation: 0, y: 0, duration: 0.4 }, 0.1)
+                      .to('.header-line.line-2', { rotation: 0, y: 0, width: '66.66%', duration: 0.4 }, 0.1);
+                }
+
+                // Menu Links & Cursor Preview matching header.html's effect
+                menuLinks.forEach((link) => {
+                    const text = link.querySelector('.menu-item-text');
+                    const label = text.innerText;
+                    text.innerHTML = label.split('').map(char => `<span class="char-wrap"><span class="char">${char}</span></span>`).join('');
+                    
+                    link.addEventListener('mouseenter', () => {
+                        const imgUrl = link.getAttribute('data-img');
+                        cursorImgInner.src = imgUrl;
+                        
+                        gsap.to(floatingImgContainer, { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" });
+                        gsap.fromTo(cursorImgInner, 
+                            { scale: 1.5 }, 
+                            { scale: 1, duration: 0.8, ease: "power3.out", overwrite: true }
+                        );
+                    });
+                    link.addEventListener('mouseleave', () => {
+                        gsap.to(floatingImgContainer, { opacity: 0, scale: 0.8, duration: 0.4, ease: "power2.in" });
+                    });
+                    link.addEventListener('click', () => {
+                        isMenuOpen = false;
+                        closeMenu();
+                    });
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    if (isMenuOpen) {
+                        xMove(e.clientX);
+                        yMove(e.clientY);
+                    }
+                });
+            }
+
+            // Init Menu Logic
+            initHeaderSystem();
+
+            initTestimonials();
+
+            // Init Testimonial Intro
+            initSectionIntro('#testimonials-intro');
+
+            // Init Testimonial Outro Button
+            initScatterButton('testimonials-outro-btn-wrapper', 'testimonials-outro-btn-text', 'Join the Elite');
+            function initContactSection() {
+                // Circular text animation
+                gsap.to(".circle-text-wrapper", {
+                    rotation: 360,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: "#contact-indicator",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1
+                    }
+                });
+
+                // Split reveal
+                const contactTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#contact-split-container",
+                        start: "top top",
+                        end: "+=200%",
+                        scrub: 1,
+                        pin: true,
+                    }
+                });
+
+                contactTl.to("#top-split-contact", {
+                    yPercent: -100,
+                    ease: "power2.inOut"
+                }, 0)
+                .to("#bottom-split-contact", {
+                    yPercent: 100,
+                    ease: "power2.inOut"
+                }, 0)
+                .fromTo("#contact-form-card", 
+                    { scale: 0.5, z: -1000, opacity: 0, rotationY: 10 },
+                    { scale: 1, z: 0, opacity: 1, rotationY: 0, duration: 1, ease: "expo.out" },
+                    0.15
+                );
+
+                contactTl.fromTo('#contact-form-card .reveal-header',
+                    { opacity: 0, y: 30, filter: "blur(10px)" },
+                    { opacity: 1, y: 0, filter: "blur(0px)", stagger: 0.15, duration: 0.8, ease: "power3.out" },
+                    0.4
+                );
+
+                contactTl.fromTo('#contact-form-card .reveal-field', 
+                    { opacity: 0, y: 30 },
+                    { opacity: 1, y: 0, stagger: 0.1, duration: 0.5 },
+                    0.6
+                );
+
+                // Auto-resize textarea
+                const detailsInput = document.getElementById('details');
+                if(detailsInput) {
+                    detailsInput.addEventListener('input', function() {
+                        this.style.height = 'auto';
+                        this.style.height = this.scrollHeight + 'px';
+                    });
+                }
+
+                // Scatter Button for Form
+                initScatterButton('contact-submit-btn-wrapper', 'contact-submit-btn-text', 'Send Vision');
+            }
+
+            // --- 11. MONOLITH FOOTER LOGIC ---
+            function initMonolithFooter() {
+                const pillars = document.querySelectorAll('.pillar');
+                
+                // Mobile Accordion Fix
+                const handleMobileState = () => {
+                    if(window.innerWidth <= 1023) {
+                        let hasActive = false;
+                        pillars.forEach(p => {
+                            if(p.classList.contains('active-mobile')) hasActive = true;
+                        });
+                        if(!hasActive && pillars.length > 0) pillars[0].classList.add('active-mobile');
+                    } else {
+                        pillars.forEach(p => p.classList.remove('active-mobile'));
+                    }
+                };
+
+                handleMobileState();
+                window.addEventListener('resize', handleMobileState);
+
+                pillars.forEach(pillar => {
+                    pillar.addEventListener('click', (e) => {
+                        if(window.innerWidth > 1023) return;
+                        if(e.target.closest('a') || e.target.closest('button')) return;
+                        pillars.forEach(p => p.classList.remove('active-mobile'));
+                        pillar.classList.add('active-mobile');
+                    });
+                });
+
+                // Pinning logic
+                ScrollTrigger.create({
+                    trigger: "#monolith-footer",
+                    start: "top top",
+                    end: "+=60%",
+                    pin: true,
+                    pinSpacing: true,
+                    anticipatePin: 1
+                });
+
+                // Entrance
+                gsap.from(".pillar", {
+                    y: "100%",
+                    duration: 1.4,
+                    stagger: 0.1,
+                    ease: "power4.out",
+                    scrollTrigger: {
+                        trigger: ".monolith-wrapper",
+                        start: "top 85%",
+                    }
+                });
+
+                // Coin Fall
+                gsap.from(".social-coin", {
+                    y: -200,
+                    rotationY: 720,
+                    rotationZ: 360,
+                    opacity: 0,
+                    duration: 1.8,
+                    stagger: 0.15,
+                    ease: "bounce.out",
+                    scrollTrigger: {
+                        trigger: "#monolith-footer",
+                        start: "top center",
+                    }
+                });
+
+                initScatterButton('footer-scatter-wrapper', 'footer-scatter-text', 'Start Project');
+            }
+
+            initHeaderSystem();
+            
+            // Scroll hide/show header
+            let lastScrollY = 0;
+            lenis.on('scroll', (e) => {
+                const currentScroll = e.animatedScroll;
+                const header = document.querySelector('.site-header');
+                
+                if (currentScroll > lastScrollY && currentScroll > 150) {
+                    // Scrolling Down
+                    header.classList.add('nav-hidden');
+                } else {
+                    // Scrolling Up
+                    header.classList.remove('nav-hidden');
+                }
+                lastScrollY = currentScroll;
+            });
+
+            initContactSection();
+
+            initMonolithFooter();
+
+        });
+    </script>
+    <a href="https://wa.me/923225941943?text=Hello%20Kamran!%20I've%20reviewed%20the%20Malik%20Wood%20Works%20website%20demo.%20It%20looks%20incredible!%20I'm%20ready%20to%20discuss%20the%20next%20steps%20for%20my%20brand." class="whatsapp-float" target="_blank">
+        <i class="ph ph-whatsapp-logo"></i>
+    </a>
+</body>
+</html>
